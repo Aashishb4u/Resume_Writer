@@ -1,0 +1,86 @@
+<div class="bg-[#eaf0fd] rounded-2xl shadow-md w-full lg:mt-20 p-6 flex flex-col">
+    <h2 class="text-lg font-semibold mb-4">RESUME TAILORING</h2>
+    <p class="text-base text-gray-600 mb-3">
+        Paste <strong>the job you're applying for</strong> and our checker will give you job-specific resume tailoring
+        suggestions.
+    </p>
+    <div class="bg-white p-4 rounded-xl shadow-sm mb-3">
+        <textarea [(ngModel)]="jobDesc" placeholder="Paste job description here..."
+            class="w-full resize-none text-base text-gray-700 h-24 p-2 bg-transparent border-none focus:outline-none focus:ring-0"></textarea>
+
+        <div class="flex items-center justify-between mt-2">
+            <a class="text-base text-indigo-600 hover:underline" href="#">📄 Use a Sample Job Post</a>
+            <button [disabled]="!jobDesc.trim()"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white text-base px-3 py-1 rounded disabled:bg-gray-300">
+                Get Tailored Insights
+            </button>
+        </div>
+    </div>
+</div>
+
+<section>
+    <div class="bg-[#eaf0fd] rounded-2xl p-6 shadow-md max-w-4xl mx-auto mt-10">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-2">
+                <svg class="w-6 h-6 text-violet-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10
+                10-4.477 10-10S17.523 2 12 2zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z" />
+                </svg>
+                <h2 class="text-lg font-bold text-gray-800 uppercase">Content</h2>
+            </div>
+            <div class="bg-white rounded-full px-4 py-1 text-base font-medium shadow text-gray-600">
+                20 ISSUES FOUND
+            </div>
+        </div>
+
+        <!-- Accordion List -->
+        <div class="space-y-4">
+            <div *ngFor="let issue of issues; let i = index" class="bg-white rounded-lg shadow p-5">
+                <div class="flex justify-between items-center cursor-pointer" (click)="toggle(i)">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-violet-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM11 14H9v-2h2v2zm0-4H9V6h2v4z" />
+                        </svg>
+                        <h3 class="text-md font-semibold text-gray-800 uppercase">{{ issue.title }}</h3>
+                    </div>
+                    <svg class="w-5 h-5 text-gray-500 transition-transform duration-300"
+                        [ngClass]="{ 'rotate-180': issue.open }" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 14l-6-6h12l-6 6z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+
+                <!-- Content -->
+                <div *ngIf="issue.open" class="mt-4 text-base text-gray-700 leading-relaxed whitespace-pre-line">
+                    {{ issue.description }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- benefits -->
+    <div class="bg-[#ffe5bb] rounded-xl p-6 flex flex-col md:flex-row justify-between items-center mt-10 shadow-md">
+        <!-- Text Content -->
+        <div class="md:w-2/3 space-y-3">
+            <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                <svg class="w-5 h-5 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 2l2.39 4.84L18 8l-4 3.91L15.39 18 10 14.9 4.61 18 6 11.91 2 8l5.61-.16L10 2z" />
+                </svg>
+                With Enhancv’s PRO report, you get:
+            </h3>
+            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                <li>A complete professional-grade resume checker report</li>
+                <li>Ready to use suggestions for improving your resume</li>
+                <li>Over 1000 industry-leading resume templates and samples</li>
+                <li>Enhancv’s resume and cover letter builder</li>
+                <li>Resume tailoring based on a job ad you provide</li>
+            </ul>
+        </div>
+
+        <!-- Illustration -->
+        <div class="mt-6 md:mt-0 md:ml-6">
+            <img src="assets/images/pro-benefits-girl.png" alt="Illustration" class="w-32 h-auto" />
+        </div>
+    </div>
+
+</section>

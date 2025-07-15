@@ -1,0 +1,61 @@
+<div class="bg-[#f1f5fd] ">
+  <div
+    class="flex flex-col lg:flex-row justify-center min-h-screen px-4 py-10 max-w-5xl mx-auto">
+    <!-- Left Panel (DO NOT CHANGE) -->
+    <div class="bg-white rounded-2xl shadow-md w-full lg:mt-20 p-6 mb-6 lg:mb-0 lg:mr-6">
+      <h2 class="text-xl font-medium text-center text-gray-900 mb-6">Your Score</h2>
+      <div class="relative w-28 h-14 mx-auto mb-6">
+        <div class="w-full h-full border-[10px] border-b-transparent border-gray-300 rounded-t-full animate-spin-slow">
+        </div>
+        <div
+          class="absolute end-1/2 left-1/2 w-1 h-1 bg-gray-700 rounded-full transform -translate-x-1/2 -translate-y-1/2">
+        </div>
+      </div>
+      <div class="space-y-2 mb-6">
+        <div class="bg-gray-200 h-4 rounded-full w-3/4 mx-auto"></div>
+        <div class="bg-gray-200 h-4 rounded-full w-2/3 mx-auto"></div>
+      </div>
+      <hr class="my-6 border-gray-200" />
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-500 uppercase tracking-wide">Tailoring</span>
+          <div class="w-10 h-4 rounded-full bg-gray-200"></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-500 uppercase tracking-wide">Content</span>
+          <div class="w-10 h-4 rounded-full bg-gray-200"></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-500 uppercase tracking-wide">Section</span>
+          <div class="w-10 h-4 rounded-full bg-gray-200"></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-gray-500 uppercase tracking-wide">ATS Essentials</span>
+          <div class="w-10 h-4 rounded-full bg-gray-200"></div>
+        </div>
+      </div>
+      <hr class="my-6 border-gray-200" />
+      <button type="button"
+        class="bg-[#F7A400] hover:bg-white hover:text-black text-white font-medium text-xs uppercase rounded-lg w-full py-3 transition-all duration-300">
+        Unlock Full Report
+      </button>
+    </div>
+
+    <!-- Right Panel with Step Animation -->
+    <div class="bg-[#eaf0fd] rounded-2xl lg:mt-20 shadow-md w-full max-w-2xl p-12 flex flex-col justify-start max-h-screen">
+      <ul class="space-y-6 w-full">
+        <li *ngFor="let step of steps; let i = index"
+          class="flex items-start space-x-4 transition-all duration-500 ease-in-out border-b border-white pb-3"
+          [ngClass]="{
+            'opacity-100 translate-x-0 scale-105 text-lg font-semibold': currentStep >= i,
+            'opacity-0 -translate-x-5 scale-95 text-base font-normal': currentStep < i
+          }">
+          <svg class="w-6 h-6 mt-1 text-violet-600 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 12l2 2 4-4M12 2a10 10 0 110 20 10 10 0 010-20z" />
+          </svg>
+          <span class="transition-all duration-500 ease-in-out">{{ step }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

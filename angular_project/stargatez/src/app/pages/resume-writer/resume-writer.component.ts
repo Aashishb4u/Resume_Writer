@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { SnackBarService } from '../../services/snack-bar.service';
+import { Router } from '@angular/router';
+
 
 declare var AOS: any;
 
@@ -46,14 +48,15 @@ export class ResumeWriterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public apiService: ApiService,
-    private snackBarService: SnackBarService
-  ) {}
+    private snackBarService: SnackBarService,
+    private router: Router
+  ) { }
 
 
   resetCvForm() {
     // Reset form after successful submission
     this.cvForm.reset();
-        
+
     // Set default values again
     this.cvForm.patchValue({
       submitted_from: 'partner',
@@ -77,7 +80,9 @@ export class ResumeWriterComponent implements OnInit {
       this.errorPopupMessage = 'Please fill in all required fields.';
       this.showErrorPopup = true;
       return;
+
     }
+    this.router.navigate(['/resume-score']);
 
     this.apiService.showSpinner$.next(true);
 
@@ -149,12 +154,12 @@ export class ResumeWriterComponent implements OnInit {
     }
   }
 
-  validatePasteInput(event: ClipboardEvent) {
-    const pastedData = event.clipboardData?.getData('text') || '';
-    if (!/^\d+$/.test(pastedData)) {
-      event.preventDefault();
-    }
-  }
+  // validatePasteInput(event: ClipboardEvent) {
+  //   const pastedData = event.clipboardData?.getData('text') || '';
+  //   if (!/^\d+$/.test(pastedData)) {
+  //     event.preventDefault();
+  //   }
+  // }
 
   ngOnInit() {
     // web hook
@@ -167,50 +172,36 @@ export class ResumeWriterComponent implements OnInit {
       }
     }, 0);
     this.cvForm = this.fb.group({
-      fullName: ['', Validators.required],
-      email: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
-      currentLocation: ['', Validators.required],
-      homeTown: ['', Validators.required],
       submitted_from: ['resume_writing', Validators.required],
-      qualification: ['', Validators.required],
       designation: ['', Validators.required],
-      resumeContent: [''],
-      skills: [[], Validators.required],
-      totalExpYear: [
-        '0',
-        [Validators.required],
-      ], 
-      totalExpMonth: [
-        '0',
-        [Validators.required],
-      ],
-      relevantExpYear: [
-        '0',
-        [Validators.required],
-      ], 
-      relevantExpMonth: [
-        '0',
-        [Validators.required],
-      ],
+      totalExpYear: ['0', Validators.required],
+      totalExpMonth: ['0', Validators.required],
       currentCompany: ['', Validators.required],
       currentSalaryLacs: ['0', Validators.required],
       currentSalaryThousands: ['0', Validators.required],
       expectedSalaryLacs: ['0', Validators.required],
       expectedSalaryThousands: ['0', Validators.required],
-      noticePeriod: [
-        '0',
-        [Validators.required, Validators.min(0), Validators.max(90)],
-      ],
+      noticePeriod: ['0', [Validators.required, Validators.min(0), Validators.max(90)]],
       resume: [''],
-      comments: [''],
-      skillsInput: [''],
+      // Removed fields (commented below)
+      // fullName: ['', Validators.required],
+      // email: ['', [Validators.required]],
+      // phoneNumber: ['', [Validators.required]],
+      // currentLocation: ['', Validators.required],
+      // homeTown: ['', Validators.required],
+      // qualification: ['', Validators.required],
+      // resumeContent: [''],
+      // skills: [[], Validators.required],
+      // relevantExpYear: ['0', [Validators.required]],
+      // relevantExpMonth: ['0', [Validators.required]],
+      // comments: [''],
+      // skillsInput: ['']
     });
-    this.fetchCountries();
-    this.getAllCities();
+    // this.fetchCountries();
+    // this.getAllCities();
     // Initialize the character count if there's an initial value
-    const initialComments = this.cvForm.get('comments')?.value || '';
-    this.commentCharCount = initialComments.length;
+    // const initialComments = this.cvForm.get('comments')?.value || '';
+    // this.commentCharCount = initialComments.length;
   }
 
   // Password toggle methods removed as they're not needed
@@ -259,120 +250,120 @@ export class ResumeWriterComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  validateExperienceInput(event: KeyboardEvent) {
-    const allowedKeys = [
-      'Backspace',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab',
-      'Delete',
-    ];
-    if (allowedKeys.includes(event.key)) {
-      return; // Allow special keys
-    }
+  // validateExperienceInput(event: KeyboardEvent) {
+  //   const allowedKeys = [
+  //     'Backspace',
+  //     'ArrowLeft',
+  //     'ArrowRight',
+  //     'Tab',
+  //     'Delete',
+  //   ];
+  //   if (allowedKeys.includes(event.key)) {
+  //     return; // Allow special keys
+  //   }
 
-    // Only allow digits
-    if (!/^\d$/.test(event.key)) {
-      event.preventDefault();
-      return;
-    }
+  //   // Only allow digits
+  //   if (!/^\d$/.test(event.key)) {
+  //     event.preventDefault();
+  //     return;
+  //   }
 
-    // Get current value and new value after key press
-    const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const newValue = currentValue + event.key;
+  //   // Get current value and new value after key press
+  //   const input = event.target as HTMLInputElement;
+  //   const currentValue = input.value;
+  //   const newValue = currentValue + event.key;
 
-    // Prevent input if it would result in a value greater than 99
-    if (parseInt(newValue) > 99) {
-      event.preventDefault();
-    }
-  }
+  //   // Prevent input if it would result in a value greater than 99
+  //   if (parseInt(newValue) > 99) {
+  //     event.preventDefault();
+  //   }
+  // }
 
-  validateExperiencePaste(event: ClipboardEvent) {
-    const pastedData = event.clipboardData?.getData('text') || '';
+  // validateExperiencePaste(event: ClipboardEvent) {
+  //   const pastedData = event.clipboardData?.getData('text') || '';
 
-    // Check if pasted data contains only digits
-    if (!/^\d+$/.test(pastedData)) {
-      event.preventDefault();
-      return;
-    }
+  //   // Check if pasted data contains only digits
+  //   if (!/^\d+$/.test(pastedData)) {
+  //     event.preventDefault();
+  //     return;
+  //   }
 
-    // Get current value and new value after paste
-    const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const selectionStart = input.selectionStart || 0;
-    const selectionEnd = input.selectionEnd || 0;
-    const newValue =
-      currentValue.substring(0, selectionStart) +
-      pastedData +
-      currentValue.substring(selectionEnd);
+  //   // Get current value and new value after paste
+  //   const input = event.target as HTMLInputElement;
+  //   const currentValue = input.value;
+  //   const selectionStart = input.selectionStart || 0;
+  //   const selectionEnd = input.selectionEnd || 0;
+  //   const newValue =
+  //     currentValue.substring(0, selectionStart) +
+  //     pastedData +
+  //     currentValue.substring(selectionEnd);
 
-    // Prevent paste if it would result in a value greater than 99
-    if (parseInt(newValue) > 99) {
-      event.preventDefault();
-    }
-  }
+  //   // Prevent paste if it would result in a value greater than 99
+  //   if (parseInt(newValue) > 99) {
+  //     event.preventDefault();
+  //   }
+  // }
 
-  fetchCountries() {
-    this.apiService.fetchAllCountries().subscribe((response: any) => {
-      const currencySet = new Set();
-      response.forEach((country: any) => {
-        if (country.currencies) {
-          Object.keys(country.currencies).forEach((code) => {
-            if (!currencySet.has(code)) {
-              currencySet.add(code);
-              this.currencies.push({
-                code,
-                countryName: country.name.common,
-                name: country.currencies[code].name,
-                dialCode:
-                  country.idd?.root +
-                  (country.idd?.suffixes ? country.idd.suffixes[0] : ''),
-              });
-            }
-          });
-        }
-      });
+  // fetchCountries() {
+  //   this.apiService.fetchAllCountries().subscribe((response: any) => {
+  //     const currencySet = new Set();
+  //     response.forEach((country: any) => {
+  //       if (country.currencies) {
+  //         Object.keys(country.currencies).forEach((code) => {
+  //           if (!currencySet.has(code)) {
+  //             currencySet.add(code);
+  //             this.currencies.push({
+  //               code,
+  //               countryName: country.name.common,
+  //               name: country.currencies[code].name,
+  //               dialCode:
+  //                 country.idd?.root +
+  //                 (country.idd?.suffixes ? country.idd.suffixes[0] : ''),
+  //             });
+  //           }
+  //         });
+  //       }
+  //     });
 
-      console.log(this.currencies);
-    });
-  }
+  //     console.log(this.currencies);
+  //   });
+  // }
 
-  onSkillsUpdate(e: any) {
-    // Get current skills or initialize as empty array if undefined
-    const currentSkills = this.cvForm.get('skills').value || [];
-    const inputValue = e.target.value.trim();
+  // onSkillsUpdate(e: any) {
+  //   // Get current skills or initialize as empty array if undefined
+  //   const currentSkills = this.cvForm.get('skills').value || [];
+  //   const inputValue = e.target.value.trim();
 
-    if (!inputValue) {
-      this.cvForm.get('skillsInput').setValue('');
-      return true;
-    }
+  //   if (!inputValue) {
+  //     this.cvForm.get('skillsInput').setValue('');
+  //     return true;
+  //   }
 
-    // Split by comma and trim each skill
-    const newSkillsInput = inputValue
-      .split(',')
-      .map((skill) => skill.trim())
-      .filter((skill) => skill);
+  //   // Split by comma and trim each skill
+  //   const newSkillsInput = inputValue
+  //     .split(',')
+  //     .map((skill) => skill.trim())
+  //     .filter((skill) => skill);
 
-    // Create a case-insensitive set of existing skills for duplicate checking
-    const existingSkillsLowerCase = currentSkills.map((skill) =>
-      skill.toLowerCase()
-    );
+  //   // Create a case-insensitive set of existing skills for duplicate checking
+  //   const existingSkillsLowerCase = currentSkills.map((skill) =>
+  //     skill.toLowerCase()
+  //   );
 
-    // Filter out duplicates (case-insensitive)
-    const uniqueNewSkills = newSkillsInput.filter(
-      (skill) => !existingSkillsLowerCase.includes(skill.toLowerCase())
-    );
+  //   // Filter out duplicates (case-insensitive)
+  //   const uniqueNewSkills = newSkillsInput.filter(
+  //     (skill) => !existingSkillsLowerCase.includes(skill.toLowerCase())
+  //   );
 
-    // Add unique new skills to the beginning of the array
-    if (uniqueNewSkills.length > 0) {
-      const updatedSkills = [...uniqueNewSkills, ...currentSkills];
-      this.cvForm.get('skills')?.setValue(updatedSkills);
-    }
+  //   // Add unique new skills to the beginning of the array
+  //   if (uniqueNewSkills.length > 0) {
+  //     const updatedSkills = [...uniqueNewSkills, ...currentSkills];
+  //     this.cvForm.get('skills')?.setValue(updatedSkills);
+  //   }
 
-    this.cvForm.get('skillsInput').setValue('');
-    return true; // Return true to allow chaining with preventDefault
-  }
+  //   this.cvForm.get('skillsInput').setValue('');
+  //   return true; // Return true to allow chaining with preventDefault
+  // }
 
   parseResume(_: string, file: File) {
     // Show spinner while parsing
@@ -409,7 +400,7 @@ export class ResumeWriterComponent implements OnInit {
       } else {
         errorMsg =
           'An error occurred while parsing the resume. Please try again.';
-      } 
+      }
       this.errorMessage = errorMsg;
       console.error('Resume parsing error:', error);
 
@@ -417,7 +408,7 @@ export class ResumeWriterComponent implements OnInit {
       this.errorPopupMessage = errorMsg;
       this.showErrorPopup = true;
     },
-  );
+    );
   }
 
   getMimeType(fileType: string): string {
@@ -496,31 +487,31 @@ export class ResumeWriterComponent implements OnInit {
     }
   }
 
-  deleteSkillChip(chip: any) {
-    // Get current skills or initialize as empty array if undefined
-    const skills = this.cvForm.get('skills').value || [];
-    const index = skills.indexOf(chip);
-    if (index !== -1) {
-      skills.splice(index, 1);
-      this.cvForm.get('skills').setValue(skills);
-    }
-  }
+  // deleteSkillChip(chip: any) {
+  //   // Get current skills or initialize as empty array if undefined
+  //   const skills = this.cvForm.get('skills').value || [];
+  //   const index = skills.indexOf(chip);
+  //   if (index !== -1) {
+  //     skills.splice(index, 1);
+  //     this.cvForm.get('skills').setValue(skills);
+  //   }
+  // }
 
   cities: any = [];
   showCityDropdown: any = {};
   filteredCitiesMap: any = {};
   dropdownTimeouts: any = {};
 
-  getAllCities() {
-    this.apiService.fetchAllCities({ search: '' }).subscribe({
-      next: (response: any) => {
-        this.cities = response.data;
-      },
-      error: (error: any) => {
-        console.error('Error fetching cities:', error);
-      },
-    });
-  }
+  // getAllCities() {
+  //   this.apiService.fetchAllCities({ search: '' }).subscribe({
+  //     next: (response: any) => {
+  //       this.cities = response.data;
+  //     },
+  //     error: (error: any) => {
+  //       console.error('Error fetching cities:', error);
+  //     },
+  //   });
+  // }
 
   filterCities(event: any, controlName: string) {
     const value = event.target.value.toLowerCase();
@@ -567,115 +558,115 @@ export class ResumeWriterComponent implements OnInit {
   commentCharCount: number = 0;
 
   // Add this method to the class
-  updateCharCount(event: any) {
-    this.commentCharCount = event.target.value.length;
-  }
+  // updateCharCount(event: any) {
+  //   this.commentCharCount = event.target.value.length;
+  // }
 
-  validateSalaryInput(event: KeyboardEvent) {
-    const allowedKeys = [
-      'Backspace',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab',
-      'Delete',
-    ];
-    if (allowedKeys.includes(event.key)) {
-      return; // Allow special keys
-    }
+  // validateSalaryInput(event: KeyboardEvent) {
+  //   const allowedKeys = [
+  //     'Backspace',
+  //     'ArrowLeft',
+  //     'ArrowRight',
+  //     'Tab',
+  //     'Delete',
+  //   ];
+  //   if (allowedKeys.includes(event.key)) {
+  //     return; // Allow special keys
+  //   }
 
-    // Only allow digits
-    if (!/^\d$/.test(event.key)) {
-      event.preventDefault();
-      return;
-    }
+  //   // Only allow digits
+  //   if (!/^\d$/.test(event.key)) {
+  //     event.preventDefault();
+  //     return;
+  //   }
 
-    // Get current value and new value after key press
-    const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const newValue = currentValue + event.key;
+  //   // Get current value and new value after key press
+  //   const input = event.target as HTMLInputElement;
+  //   const currentValue = input.value;
+  //   const newValue = currentValue + event.key;
 
-    // Prevent input if it would result in less than 4 or more than 7 digits
-    if (newValue.length > 7) {
-      event.preventDefault();
-    }
-  }
+  //   // Prevent input if it would result in less than 4 or more than 7 digits
+  //   if (newValue.length > 7) {
+  //     event.preventDefault();
+  //   }
+  // }
 
-  validateNoticePeriodInput(event: KeyboardEvent) {
-    const allowedKeys = [
-      'Backspace',
-      'ArrowLeft',
-      'ArrowRight',
-      'Tab',
-      'Delete',
-    ];
-    if (allowedKeys.includes(event.key)) {
-      return; // Allow special keys
-    }
+  // validateNoticePeriodInput(event: KeyboardEvent) {
+  //   const allowedKeys = [
+  //     'Backspace',
+  //     'ArrowLeft',
+  //     'ArrowRight',
+  //     'Tab',
+  //     'Delete',
+  //   ];
+  //   if (allowedKeys.includes(event.key)) {
+  //     return; // Allow special keys
+  //   }
 
-    // Only allow digits
-    if (!/^\d$/.test(event.key)) {
-      event.preventDefault();
-      return;
-    }
+  //   // Only allow digits
+  //   if (!/^\d$/.test(event.key)) {
+  //     event.preventDefault();
+  //     return;
+  //   }
 
-    // Get current value and new value after key press
-    const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const newValue = currentValue + event.key;
+  //   // Get current value and new value after key press
+  //   const input = event.target as HTMLInputElement;
+  //   const currentValue = input.value;
+  //   const newValue = currentValue + event.key;
 
-    // Prevent input if it would result in a value greater than 90
-    if (parseInt(newValue) > 90) {
-      event.preventDefault();
-    }
-  }
+  //   // Prevent input if it would result in a value greater than 90
+  //   if (parseInt(newValue) > 90) {
+  //     event.preventDefault();
+  //   }
+  // }
 
-  validateNoticePeriodPaste(event: ClipboardEvent) {
-    const pastedData = event.clipboardData?.getData('text') || '';
+  // validateNoticePeriodPaste(event: ClipboardEvent) {
+  //   const pastedData = event.clipboardData?.getData('text') || '';
 
-    // Check if pasted data contains only digits
-    if (!/^\d+$/.test(pastedData)) {
-      event.preventDefault();
-      return;
-    }
+  //   // Check if pasted data contains only digits
+  //   if (!/^\d+$/.test(pastedData)) {
+  //     event.preventDefault();
+  //     return;
+  //   }
 
-    // Get current value and new value after paste
-    const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const selectionStart = input.selectionStart || 0;
-    const selectionEnd = input.selectionEnd || 0;
-    const newValue =
-      currentValue.substring(0, selectionStart) +
-      pastedData +
-      currentValue.substring(selectionEnd);
+  //   // Get current value and new value after paste
+  //   const input = event.target as HTMLInputElement;
+  //   const currentValue = input.value;
+  //   const selectionStart = input.selectionStart || 0;
+  //   const selectionEnd = input.selectionEnd || 0;
+  //   const newValue =
+  //     currentValue.substring(0, selectionStart) +
+  //     pastedData +
+  //     currentValue.substring(selectionEnd);
 
-    // Prevent paste if it would result in a value greater than 90
-    if (parseInt(newValue) > 90) {
-      event.preventDefault();
-    }
-  }
+  //   // Prevent paste if it would result in a value greater than 90
+  //   if (parseInt(newValue) > 90) {
+  //     event.preventDefault();
+  //   }
+  // }
 
-  validateSalaryPaste(event: ClipboardEvent) {
-    const pastedData = event.clipboardData?.getData('text') || '';
+  // validateSalaryPaste(event: ClipboardEvent) {
+  //   const pastedData = event.clipboardData?.getData('text') || '';
 
-    // Check if pasted data contains only digits
-    if (!/^\d+$/.test(pastedData)) {
-      event.preventDefault();
-      return;
-    }
+  //   // Check if pasted data contains only digits
+  //   if (!/^\d+$/.test(pastedData)) {
+  //     event.preventDefault();
+  //     return;
+  //   }
 
-    // Get current value and new value after paste
-    const input = event.target as HTMLInputElement;
-    const currentValue = input.value;
-    const selectionStart = input.selectionStart || 0;
-    const selectionEnd = input.selectionEnd || 0;
-    const newValue =
-      currentValue.substring(0, selectionStart) +
-      pastedData +
-      currentValue.substring(selectionEnd);
+  //   // Get current value and new value after paste
+  //   const input = event.target as HTMLInputElement;
+  //   const currentValue = input.value;
+  //   const selectionStart = input.selectionStart || 0;
+  //   const selectionEnd = input.selectionEnd || 0;
+  //   const newValue =
+  //     currentValue.substring(0, selectionStart) +
+  //     pastedData +
+  //     currentValue.substring(selectionEnd);
 
-    // Prevent paste if it would result in less than 4 or more than 7 digits
-    if (newValue.length > 7) {
-      event.preventDefault();
-    }
-  }
+  //   // Prevent paste if it would result in less than 4 or more than 7 digits
+  //   if (newValue.length > 7) {
+  //     event.preventDefault();
+  //   }
+  // }
 }

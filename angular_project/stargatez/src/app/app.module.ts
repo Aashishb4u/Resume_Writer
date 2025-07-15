@@ -19,6 +19,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { ErrorPopupComponent } from './components/error-popup/error-popup.component';
+import { ResumeScoreComponent } from './pages/resume-score/resume-score.component';
+import { ResumeLoaderComponent } from './components/resume-loader/resume-loader.component';
+import { ScoreCardComponent } from './components/score-card/score-card.component';
+import { ResumeTailoringComponent } from './components/resume-tailoring/resume-tailoring.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { ErrorPopupComponent } from './components/error-popup/error-popup.compon
     CareerFluteComponent,
     SpinnerComponent,
     SnackBarComponent,
-    ErrorPopupComponent
+    ErrorPopupComponent,
+    ResumeScoreComponent,
+    ResumeLoaderComponent,
+    ScoreCardComponent,
+    ResumeTailoringComponent
   ],
   imports: [
     BrowserModule,

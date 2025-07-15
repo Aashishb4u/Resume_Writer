@@ -1,0 +1,17 @@
+<app-header [videoHeader]="false"></app-header>
+<div>
+    <!-- ✅ Loader (outside of flex box) -->
+    <ng-container *ngIf="showLoader; else scoreSection">
+        <app-resume-loader (loadingComplete)="handleLoadingComplete()"></app-resume-loader>
+    </ng-container>
+
+    <!-- ✅ Main Content (Score + Tailoring) -->
+    <ng-template #scoreSection>
+        <div class=" flex flex-col lg:flex-row justify-center gap-6 bg-[#f1f5fd] min-h-screen py-10 px-4">
+            <div>
+                <app-score-card></app-score-card>
+            </div>
+            <div><app-resume-tailoring></app-resume-tailoring></div>
+        </div>
+    </ng-template>
+</div>

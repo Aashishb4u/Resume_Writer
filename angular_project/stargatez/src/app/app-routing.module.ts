@@ -9,6 +9,7 @@ import { PartnerPortalComponent } from './pages/partner-portal/partner-portal.co
 import { ResumeWriterComponent } from './pages/resume-writer/resume-writer.component';
 import { StrategicStaffingComponent } from './pages/strategic-staffing/strategic-staffing.component';
 import { CareerFluteComponent } from './pages/career-flute/career-flute.component';
+import { ResumeScoreComponent } from './pages/resume-score/resume-score.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path:  'strategic-staffing', component: StrategicStaffingComponent},
   { path:  'resume-writer', component: ResumeWriterComponent},
   { path:  'career-flute', component: CareerFluteComponent},
+  { path:  'resume-score', component: ResumeScoreComponent},
 ];
 
 const routerOptions: ExtraOptions = {

@@ -12,13 +12,15 @@ export class HeaderComponent implements AfterViewInit {
   @Input() phoneVideoPath: any;
   @Input() webVideoPath: any;
   @Input() videoHeight: any = 'full';
+  @Input() videoHeader: any = true;
+
   showMenu: any = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) { }
   @ViewChild('phoneVideo', { static: false }) phoneVideoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('webVideo', { static: false }) webVideoElement!: ElementRef<HTMLVideoElement>;
 
   ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {  
+    if (isPlatformBrowser(this.platformId)) {
       const phoneVideo = this.phoneVideoElement.nativeElement;
       const webVideo = this.webVideoElement.nativeElement;
       phoneVideo.muted = true;
@@ -41,13 +43,13 @@ export class HeaderComponent implements AfterViewInit {
 
   playVideo() {
 
-    if (isPlatformBrowser(this.platformId)) {  
+    if (isPlatformBrowser(this.platformId)) {
       // ✅ Ensures it's running in the browser
 
       setTimeout(() => {
         const webVideo = document.getElementById('webVideoPath') as HTMLVideoElement | null;
         const phoneVideo = document.getElementById('phoneVideoPath') as HTMLVideoElement | null;
-  
+
         if (webVideo) {
           webVideo.addEventListener('canplaythrough', () => {
             webVideo.muted = true;
@@ -59,7 +61,7 @@ export class HeaderComponent implements AfterViewInit {
             });
           });
         }
-        
+
         if (phoneVideo) {
           phoneVideo.addEventListener('canplaythrough', () => {
             phoneVideo.muted = true;
@@ -72,8 +74,8 @@ export class HeaderComponent implements AfterViewInit {
           });
         }
       }, 2000);
-     
+
     }
   }
-  
+
 }

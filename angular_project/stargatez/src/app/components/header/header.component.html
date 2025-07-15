@@ -1,6 +1,7 @@
 <!-- Hero Section -->
-<header
-    class="bg-[#000000] relative w-full {{videoHeight === 'half' ? 'h-[60vh]': 'h-[90vh] lg:h-screen'}} overflow-hidden">
+<!-- <ng-container *ngIf="videoHeader; else noVideoHeader"> -->
+<header *ngIf="videoHeader; else noVideoHeader"
+    class="bg-[#000000] test-class relative w-full {{videoHeight === 'half' ? 'h-[60vh]': 'h-[90vh] lg:h-screen'}} overflow-hidden">
     <nav id="navbar"
         class="fixed z-50 flex items-center justify-between w-full p-5 px-8 transition-all duration-300 bg-black/40 backdrop-blur-md md:px-20">
         <a routerLink="/">
@@ -109,7 +110,8 @@
 
         </ul>
 
-        <ul id="menu" *ngIf="showMenu" class="items-center gap-8 lg:static absolute left-0 right-0 lg:flex-row flex-col justify-center top-full py-8 lg:py-0 z-50 2xl:text-lg font-normal bg-[#000000e4] lg:bg-transparent space-y-3 lg:space-y-0 p-4 lg:p-0 mt-4 lg:mt-0 rounded-lg lg:hidden mx-4 max-w-[calc(100%-2rem)] transition-all duration-400 ease-in-out transform animate-fade-up">
+        <ul id="menu" *ngIf="showMenu"
+            class="items-center gap-8 lg:static absolute left-0 right-0 lg:flex-row flex-col justify-center top-full py-8 lg:py-0 z-50 2xl:text-lg font-normal bg-[#000000e4] lg:bg-transparent space-y-3 lg:space-y-0 p-4 lg:p-0 mt-4 lg:mt-0 rounded-lg lg:hidden mx-4 max-w-[calc(100%-2rem)] transition-all duration-400 ease-in-out transform animate-fade-up">
 
             <li class="relative group" id="manufacturing">
 
@@ -199,6 +201,7 @@
 
     </nav>
 
+    <!-- <ng-container *ngIf="webVideoPath"> -->
     <figure>
         <video #webVideo loading="lazy" id="webVideoPath" autoplay muted loop playsinline preload="auto"
             class="absolute inset-0 hidden object-cover w-full h-full md:block" [src]="webVideoPath">
@@ -206,9 +209,10 @@
             Your browser does not support the video tag.
         </video>
     </figure>
+    <!-- </ng-container> -->
 
 
-
+    <!-- <ng-container *ngIf="phoneVideoPath"> -->
     <figure>
         <video #phoneVideo loading="lazy" id="phoneVideoPath" autoplay muted loop playsinline preload="auto"
             class="absolute inset-0 object-cover w-full h-full md:hidden" [src]="phoneVideoPath">
@@ -216,7 +220,218 @@
             Your browser does not support the video tag.
         </video>
     </figure>
+    <!-- </ng-container> -->
 
     <ng-content></ng-content>
 
 </header>
+<!-- </ng-container> -->
+<ng-template #noVideoHeader>
+    <header
+        class="bg-[#ffffff] relative w-full">
+        <nav id="navbar"
+            class="fixed z-50 flex items-center justify-between w-full p-5 px-8 transition-all duration-300 bg-white/40 backdrop-blur-md md:px-20">
+            <a routerLink="/">
+                <img class="relative z-20 h-6 md:h-8" src="assets/images/logo.png" alt="logo">
+            </a>
+
+            <button (click)="showMenu = !showMenu" class="lg:hidden" id="menu-toggle">
+
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="white" class="size-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+
+            </button>
+            <!-- menu -->
+            <ul id="menu"
+                class="lg:flex items-center gap-8 lg:static absolute left-0 right-0 lg:flex-row flex-col justify-center top-full py-8 lg:py-0 z-50  2xl:text-lg font-normal bg-[#CDCCCD] lg:bg-transparent space-y-3 lg:space-y-0 p-4 lg:p-0 mt-4 lg:mt-0 rounded-lg hidden">
+
+                <li class="relative group" id="manufacturing">
+
+                    <div routerLinkActive="text-yellow-500" routerLink="/home"
+                        class="text-black cursor-pointer nav-link">
+                        Home</div>
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="products">
+                    <div routerLinkActive="text-yellow-500" routerLink="/about-us"
+                        class="block text-black cursor-pointer md:py-3 nav-link">About Us</div>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+
+                </li>
+                <li class="relative group menu" id="services">
+                    <a href="#" class="block text-black md:py-3">Services</a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                    <div
+                        class="absolute left-0 z-10 hidden w-56 py-2 overflow-hidden text-xs bg-gray-200 border border-gray-200 rounded-md shadow-md md:text-sm 2xl:text-base md:w-80 md:py-4 group-hover:block">
+                        <a href="#" routerLinkActive="text-yellow-500" routerLink="/home" fragment="what-we-can-do"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 procurement-project-management">
+                            Digital Transformation</a>
+                        <a href="https://www.gleafink.com/" target="_blank"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 procurement-project-management">Data
+                            Products</a>
+                        <a href="#" routerLinkActive="text-yellow-500" routerLink="/strategic-staffing"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 procurement-project-management">
+
+                            Strategic Staffing</a>
+                        <a href="#" routerLinkActive="text-yellow-500" routerLink="/resume-writer"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 training">
+
+                            Resume Writing</a>
+                        <a target="_blank" [href]="careerFluteUrl" routerLinkActive="text-yellow-500"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 lv-installation">Career
+                            Flute</a>
+
+
+                    </div>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <div routerLinkActive="text-yellow-500" routerLink="/industries"
+                        class="block text-black cursor-pointer md:py-3">Industries</div>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <div routerLinkActive="text-yellow-500" routerLink="/contact-us"
+                        class="block text-black cursor-pointer md:py-3">Contact Us</div>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <a routerLink="/partner-portal" routerLinkActive="text-yellow-500"
+                        class="block text-black md:py-3">Partner</a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <!-- <li class="relative group menu" id="explore-active">
+                <a routerLink="/strategic-staffing" routerLinkActive="text-yellow-500"
+                    class="block text-black md:py-3">Strategic Staffing</a>
+                <span
+                    class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                </span>
+            </li> -->
+                <li class="relative group menu" id="explore-active">
+                    <a routerLinkActive="text-yellow-500" routerLink="/job-seeker" class="block text-black md:py-3">Job
+                        Seekers</a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="services">
+                    <a [href]="careerFluteUrl" target="_blank"
+                        class="block text-black shadow-2xl px-4 py-2 rounded border-1 border-[#d3d3d3] bg-cover bg-center p-1 bg-[#261509]">
+                        <img src="../../../assets/images/career-flute.png" alt="Career Flute"
+                            class="object-cover transition-transform duration-300 width-full hover:scale-105"
+                            style="height: 30px;">
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul id="menu" *ngIf="showMenu"
+                class="items-center gap-8 lg:static absolute left-0 right-0 lg:flex-row flex-col justify-center top-full py-8 lg:py-0 z-50 2xl:text-lg font-normal bg-[#000000e4] lg:bg-transparent space-y-3 lg:space-y-0 p-4 lg:p-0 mt-4 lg:mt-0 rounded-lg lg:hidden mx-4 max-w-[calc(100%-2rem)] transition-all duration-400 ease-in-out transform animate-fade-up">
+
+                <li class="relative group" id="manufacturing">
+
+                    <div routerLinkActive="text-yellow-500" routerLink="/resume-writer"
+                        class="text-black cursor-pointer nav-link">Resume Writer</div>
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="products">
+                    <div routerLinkActive="text-yellow-500" routerLink="/about-us"
+                        class="block text-black cursor-pointer md:py-3 nav-link">About Us</div>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+
+                </li>
+
+                <li class="relative group menu" id="explore-active">
+                    <div routerLinkActive="text-yellow-500" routerLink="/industries"
+                        class="block text-black cursor-pointer md:py-3">Industries</div>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <div routerLinkActive="text-yellow-500" routerLink="/contact-us"
+                        class="block text-black cursor-pointer md:py-3">Contact Us</div>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <a routerLink="/partner-portal" routerLinkActive="text-yellow-500"
+                        class="block text-black md:py-3">Partner</a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <a routerLink="/strategic-staffing" routerLinkActive="text-yellow-500"
+                        class="block text-black md:py-3">Strategic Staffing</a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="explore-active">
+                    <a routerLinkActive="text-yellow-500" routerLink="/job-seeker" class="block text-black md:py-3">Job
+                        Seekers</a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                </li>
+                <li class="relative group menu" id="services">
+                    <a href="#" class="block text-black md:py-3">
+                        <i class="fa fa-cog"></i>
+                    </a>
+                    <span
+                        class="absolute md:bottom-2 bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-1/2 active-nav-link cursor-pointer">
+                    </span>
+                    <div
+                        class="absolute left-0 z-10 hidden w-56 py-2 overflow-hidden text-xs bg-gray-200 border border-gray-200 rounded-md shadow-md md:text-sm 2xl:text-base md:w-80 md:py-4 group-hover:block">
+                        <a href="#" routerLinkActive="text-yellow-500" routerLink="/home"
+                            fragment="digital-capabilitites"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 procurement-project-management">
+                            Digital Transformation</a>
+                        <a href="https://www.gleafink.com/" target="_blank"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 procurement-project-management">Data
+                            Products</a>
+                        <a href="#" routerLinkActive="text-yellow-500" routerLink="/strategic-staffing"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 procurement-project-management">
+
+                            Strategic Staffing</a>
+                        <a href="#" routerLinkActive="text-yellow-500" routerLink="/resume-writer"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 training">
+
+                            Resume Writing</a>
+                        <a [href]="careerFluteUrl" target="_blank"
+                            class="flex items-center gap-3 px-3 py-2 text-black uppercase hover:bg-gray-100 lv-installation">Career
+                            Flute</a>
+
+
+                    </div>
+                </li>
+
+
+            </ul>
+        </nav>
+
+
+        <!-- <ng-content></ng-content> -->
+
+    </header>
+</ng-template>
