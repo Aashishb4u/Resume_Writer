@@ -23,6 +23,7 @@ import { ResumeScoreComponent } from './pages/resume-score/resume-score.componen
 import { ResumeLoaderComponent } from './components/resume-loader/resume-loader.component';
 import { ScoreCardComponent } from './components/score-card/score-card.component';
 import { ResumeTailoringComponent } from './components/resume-tailoring/resume-tailoring.component';
+import { AtsDashboardComponent } from './components/ats-dashboard/ats-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ResumeTailoringComponent } from './components/resume-tailoring/resume-t
     ResumeScoreComponent,
     ResumeLoaderComponent,
     ScoreCardComponent,
-    ResumeTailoringComponent
+    ResumeTailoringComponent,
+    AtsDashboardComponent
   ],
   imports: [
     BrowserModule,
