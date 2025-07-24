@@ -599,6 +599,36 @@
                     Have questions or ready to get started? Reach out to us today!
                 </p>
 
+                <section
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+
+                    <!-- Card 1 -->
+                    <div
+                        class="backdrop-blur-lg bg-white/10 border border-white/20 text-white p-6 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300">
+                        <p class="text-center items-center font-semibold text-lg">Analyze your current Resume & Get Resume Score</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div
+                        class="backdrop-blur-lg bg-white/10 border border-white/20 text-white p-6 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300">
+                        <p class="text-center font-semibold text-lg">Know your Resume is ATS friendly or not</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div
+                        class="backdrop-blur-lg bg-white/10 border border-white/20 text-white p-6 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300">
+                        <p class="text-center font-semibold text-lg">Get your Resume Feedback Report</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div
+                        class="backdrop-blur-lg bg-white/10 border border-white/20 text-white p-6 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300">
+                        <p class="text-center font-semibold text-lg">Know what to improve</p>
+                    </div>
+
+                </section>
+
+
                 <form class="mt-6 bg-transparent" [formGroup]="cvForm" (ngSubmit)="onSubmit()">
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-1">
                         <label for="upload-my-cv"
@@ -611,7 +641,7 @@
                                     class="text-gray-400"> &nbsp; or Drag & Drop</span>
                             </div>
                             <!-- test -->
-                            
+
                             <!-- test -->
                             <input formControlName="resume" type="file" #fileInput id="upload-my-cv" class="hidden"
                                 (change)="onFileSelected($event)">
@@ -668,6 +698,68 @@
                             </div>
                         </div> -->
                     </div>
+
+                    <div class="grid grid-cols-1 gap-4 mt-3 md:grid-cols-3">
+
+                        <div class="mb-3">
+                            <label
+                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Educational
+                                Qualification <span class="text-red-500">*</span>
+                            </label>
+                            <input formControlName="qualification" type="text" placeholder="Highest Qualification"
+                                class="{{cvForm.get('qualification')?.invalid && cvForm.get('qualification')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
+                        </div>
+                        <div class="relative mb-3">
+                            <label
+                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Current
+                                Location <span class="text-red-500">*</span></label>
+                            <input formControlName="currentLocation" type="text" placeholder="City, State"
+                                (input)="filterCities($event, 'currentLocation')"
+                                (focus)="showCityDropdown['currentLocation'] = true"
+                                (blur)="hideCityDropdownDelayed('currentLocation')"
+                                class="{{cvForm.get('currentLocation')?.invalid && cvForm.get('currentLocation')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
+
+
+                            <div *ngIf="showCityDropdown['currentLocation'] && filteredCitiesMap['currentLocation']?.length > 0"
+                                class="absolute z-10 w-full mt-1 overflow-y-auto text-left text-black bg-white border border-gray-300 rounded-md shadow-lg max-h-60 animate-fade-up">
+                                <div *ngFor="let city of filteredCitiesMap['currentLocation']"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                    (mousedown)="selectCity(city, 'currentLocation')">
+                                    {{city.name}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="relative mb-3">
+                            <label
+                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Home
+                                Town <span class="text-red-500">*</span></label>
+                            <input formControlName="homeTown" type="text" placeholder="City, State"
+                                (input)="filterCities($event, 'homeTown')" (focus)="showCityDropdown['homeTown'] = true"
+                                (blur)="hideCityDropdownDelayed('homeTown')"
+                                class="{{cvForm.get('homeTown')?.invalid && cvForm.get('homeTown')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
+
+                            
+                            <div *ngIf="showCityDropdown['homeTown'] && filteredCitiesMap['homeTown']?.length > 0"
+                                class="absolute z-10 w-full mt-1 overflow-y-auto text-left text-black bg-white border border-gray-300 rounded-md shadow-lg max-h-60 animate-fade-up">
+                                <div *ngFor="let city of filteredCitiesMap['homeTown']"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                    (mousedown)="selectCity(city, 'homeTown')">
+                                    {{city.name}}
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="mb-3">
+                            <label
+                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Role
+                                Applying For <span class="text-red-500">*</span>
+                            </label>
+                            <input formControlName="designation" type="text"
+                                placeholder="Role Mentioned in the Job Description"
+                                class="{{cvForm.get('designation')?.invalid && cvForm.get('designation')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div class="mb-3">
                             <label
@@ -731,92 +823,10 @@
                         </div>
 
                     </div>
-                    <!-- <div class="grid grid-cols-1 gap-4 mt-3 md:grid-cols-3">
-                        <div class="mt-3 mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Candidate
-                                Name <span class="text-red-500">*</span></label>
-                            <input formControlName="fullName" type="text"
-                                placeholder="Name of the Candidate as it appears in the Resume" required
-                                class="{{cvForm.get('fullName')?.invalid && cvForm.get('fullName')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
 
-                        <div class="mt-3 mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Candidate
-                                Email ID <span class="text-red-500">*</span>
-                            </label>
-                            <input formControlName="email" type="email" placeholder="Valid Email ID"
-                                class="{{cvForm.get('email')?.invalid && cvForm.get('email')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
-
-                        <div class="mt-3 mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Candidate
-                                Phone Number <span class="text-red-500">*</span>
-                            </label>
-                            <input formControlName="phoneNumber" type="tel" placeholder="10 Digit Phone Number" required
-                                class="{{cvForm.get('phoneNumber')?.invalid && cvForm.get('phoneNumber')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Educational
-                                Qualification <span class="text-red-500">*</span>
-                            </label>
-                            <input formControlName="qualification" type="text" placeholder="Highest Qualification"
-                                class="{{cvForm.get('qualification')?.invalid && cvForm.get('qualification')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
-                        <div class="relative mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Current
-                                Location <span class="text-red-500">*</span></label>
-                            <input formControlName="currentLocation" type="text" placeholder="City, State"
-                            (input)="filterCities($event, 'currentLocation')" (focus)="showCityDropdown['currentLocation'] = true"
-                            (blur)="hideCityDropdownDelayed('currentLocation')"
-                            class="{{cvForm.get('currentLocation')?.invalid && cvForm.get('currentLocation')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-
-                            
-                            <div *ngIf="showCityDropdown['currentLocation'] && filteredCitiesMap['currentLocation']?.length > 0"
-                                class="absolute z-10 w-full mt-1 overflow-y-auto text-left text-black bg-white border border-gray-300 rounded-md shadow-lg max-h-60 animate-fade-up">
-                                <div *ngFor="let city of filteredCitiesMap['currentLocation']"
-                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                                    (mousedown)="selectCity(city, 'currentLocation')">
-                                    {{city.name}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="relative mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Home
-                                Town <span class="text-red-500">*</span></label>
-                            <input formControlName="homeTown" type="text" placeholder="City, State"
-                                (input)="filterCities($event, 'homeTown')" (focus)="showCityDropdown['homeTown'] = true"
-                                (blur)="hideCityDropdownDelayed('homeTown')"
-                                class="{{cvForm.get('homeTown')?.invalid && cvForm.get('homeTown')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-
-                            
-                            <div *ngIf="showCityDropdown['homeTown'] && filteredCitiesMap['homeTown']?.length > 0"
-                                class="absolute z-10 w-full mt-1 overflow-y-auto text-left text-black bg-white border border-gray-300 rounded-md shadow-lg max-h-60 animate-fade-up">
-                                <div *ngFor="let city of filteredCitiesMap['homeTown']"
-                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                                    (mousedown)="selectCity(city, 'homeTown')">
-                                    {{city.name}}
-                                </div>
-                            </div>
-                        </div>
+                    <!-- <div class="grid grid-cols-1 gap-6 mt-3 md:grid-cols-1">
+                        
                     </div> -->
-                    <div class="grid grid-cols-1 gap-6 mt-3 md:grid-cols-1">
-                        <div class="mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Role
-                                Applying For <span class="text-red-500">*</span>
-                            </label>
-                            <input formControlName="designation" type="text"
-                                placeholder="Role Mentioned in the Job Description"
-                                class="{{cvForm.get('designation')?.invalid && cvForm.get('designation')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
-                    </div>
                     <!-- <div class="grid grid-cols-1 gap-6 mt-3">
                         <div class="mb-3">
                             <label
@@ -887,6 +897,22 @@
                         </div>
                         <div class="mb-3">
                             <label
+                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Notice
+                                Period <span class="text-red-500">*</span></label>
+                            <div class="grid items-center gap-3">
+                                <div class="relative">
+                                    <!-- Select Dropdown with Dynamic Styling -->
+                                    <select formControlName="noticePeriod"
+                                        class="{{cvForm.get('noticePeriod')?.invalid && cvForm.get('noticePeriod')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
+                                        <option *ngFor="let day of noticePeriodList" [value]="day">{{day}}
+                                            {{apiService.getDynamicDay(day)}}</option>
+                                    </select>
+                                </div>
+                                <!-- <span class="ml-2 text-xs text-gray-500">Days</span> -->
+                            </div>
+                        </div>
+                        <!-- <div class="mb-3">
+                            <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Expected
                                 CTC <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-2 gap-3">
@@ -896,7 +922,7 @@
                                         <option *ngFor="let lac of lacsList" [value]="lac">{{lac}}
                                             {{apiService.getDynamicLac(lac)}}</option>
                                     </select>
-                                    <!-- <span class="ml-2 text-xs text-gray-500">Lacs</span> -->
+                                    <span class="ml-2 text-xs text-gray-500">Lacs</span>
                                 </div>
                                 <div>
                                     <select formControlName="expectedSalaryThousands"
@@ -904,24 +930,11 @@
                                         <option *ngFor="let thousand of thousandsList" [value]="thousand">{{thousand}}
                                             {{apiService.getDynamicThousand(thousand)}}</option>
                                     </select>
-                                    <!-- <span class="ml-2 text-xs text-gray-500">Thousands</span> -->
+                                    <span class="ml-2 text-xs text-gray-500">Thousands</span>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- <div class="mb-3">
-                            <label class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Notice Period <span
-                                    class="text-red-500">*</span></label>
-                            <div class="grid items-center gap-3">
-                                <div class="relative">
-                                    Select Dropdown with Dynamic Styling
-                                    <select formControlName="noticePeriod"
-                                        class="{{cvForm.get('noticePeriod')?.invalid && cvForm.get('noticePeriod')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
-                                        <option *ngFor="let day of noticePeriodList" [value]="day">{{day}} {{apiService.getDynamicDay(day)}}</option>
-                                    </select>
-                                </div>
-                                <span class="ml-2 text-xs text-gray-500">Days</span>
                             </div>
                         </div> -->
+
                     </div>
                     <!-- <div class="grid grid-cols-1 gap-4 mt-3 md:grid-cols-1">
                         <div class="relative mb-3">
