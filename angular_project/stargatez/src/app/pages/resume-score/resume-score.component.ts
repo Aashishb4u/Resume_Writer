@@ -12,6 +12,7 @@ export class ResumeScoreComponent {
   id: any;
   errorPopupMessage;
   showErrorPopup = false;
+  resumeScore: any = null;
 
   constructor(private route: ActivatedRoute, public apiService: ApiService, public router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -32,7 +33,7 @@ export class ResumeScoreComponent {
 
   fetchResumeScore() {
     this.apiService.parseAtsScore(this.id).subscribe((response: any) => {
-      console.log('Resume score:', response);
+      this.resumeScore = response.data;
       this.showLoader = false;
     }, (error: any) => {
       console.error('Error fetching resume score:', error);

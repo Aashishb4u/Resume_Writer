@@ -7,7 +7,7 @@
     </div>
 
     <!-- Score and Keywords -->
-    <div class="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-[67%_30%] gap-8">
         <!-- Score Card -->
         <div class="bg-white shadow rounded-xl p-6">
             <div class="text-xl md:text-2xl font-medium mb-8">ATS Compatibility Score
@@ -24,16 +24,17 @@
                             stroke="currentColor" stroke-width="3.8" />
                     </svg>
                     <div class="absolute inset-0 flex items-center justify-center text-3xl font-bold text-blue-600">
-                        {{ score }}%
+                        {{ resumeScore?.resume_score }}%
                     </div>
                 </div>
             </div>
-            <div class=" text-base text-gray-700 text-center mt-4">
-                Your resume is an excellent match for the Software
-                Engineer role, demonstrating strong alignment with key technical skills and experience. Focus on
-                refining action verbs for even greater impact.
-                <p class="items-center text-base font-medium mt-8"><img src="./assets/images/right-up.png" alt="arrow"
-                        class="w-4 h-4 inline-block"> Improved by 15% compared to previous analysis</p>
+            <div class="text-xl mt-2 mb-4 text-green-500 text-center">
+                Good
+            </div>
+            <div class=" text-base align-justify text-gray-700 text-center mt-4">
+                    {{resumeScore?.resume_feedback}}
+                <!-- <p class="items-center text-base font-medium mt-8"><img src="./assets/images/right-up.png" alt="arrow"
+                        class="w-4 h-4 inline-block"> Improved by 15% compared to previous analysis</p> -->
             </div>
         </div>
 
@@ -46,15 +47,16 @@
                 <div class="text-red-600 font-semibold mb-4"><img src="./assets/images/delete.png" alt="warning"
                         class="w-4 h-4 inline-block"> Missing Keywords</div>
                 <ul class="list-disc list-inside text-gray-700 space-y-2">
-                    <li *ngFor="let kw of missingKeywords">{{ kw }}</li>
+                    <li *ngFor="let kw of resumeScore?.missing_keywords">{{ kw }}</li>
                 </ul>
                 <div>
                     <p class="text-gray-800 font-semibold text-base mt-4 mb-4"><img src="./assets/images/check.png"
                             alt="warning" class="w-4 h-4 inline-block"> Found Keywords</p>
                     <ul class="space-y-2">
-                        <li *ngFor="let kw of foundKeywords" class="flex justify-between text-base text-gray-700">
-                            <span>{{ kw.term }}</span>
-                            <span class="text-yellow-500 font-medium">{{ kw.count }} times</span>
+                        <li *ngFor="let kw of resumeScore?.found_keywords" class="flex justify-between text-base text-gray-700">
+                            <!-- <i class="fa fa-"></i> -->
+                            {{ kw }}
+                            <!-- <span class="text-yellow-500 font-medium">{{ kw.count }} times</span> -->
                         </li>
                     </ul>
                 </div>
@@ -78,7 +80,7 @@
     <!-- Suggestions Section -->
     <h2 class="text-xl md:text-3xl font-semibold text-gray-900">Suggestions and Improvements</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div *ngFor="let suggestion of suggestions" class="bg-white rounded-xl shadow p-5">
+        <div *ngFor="let suggestion of suggestions; let index = index" class="bg-white rounded-xl shadow p-5">
             <div class="flex items-start gap-3 mb-2">
                 <img [src]="suggestion.icon" class="w-6 h-6 mt-1" alt="{{ suggestion.title }} Icon" />
                 <h3 class="font-semibold text-gray-800 text-lg">{{ suggestion.title }}</h3>

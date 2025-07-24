@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { text } from 'node:stream/consumers';
 
 @Component({
@@ -10,6 +10,8 @@ templateUrl: './ats-dashboard.component.html',
 export class AtsDashboardComponent implements OnInit {
   score: number = 0;
   targetScore: number = 85;
+  @Input() resumeScore: any; 
+
 
   missingKeywords: string[] = [
     'Microservices',
@@ -31,13 +33,13 @@ export class AtsDashboardComponent implements OnInit {
       icon: 'assets/images/search.png',
       title: 'Keyword Optimization',
       description: 'Integrate missing keywords and improve relevance by spreading them throughout your resume.',
-      text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, fugit?'
+      keyword_optimisation: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, fugit?'
     },
     {
       icon: 'assets/images/google-forms.png',
       title: 'Formatting & Structure',
       description: 'Ensure a clean, professional structure using standard headings, fonts, and graphics that confuse ATS.',
-      text: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, fugit?'
+      formatting_structure: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, fugit?'
     },
     {
       icon: 'assets/images/flash.png',
@@ -67,6 +69,7 @@ export class AtsDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.animateScore();
+    console.log(this.resumeScore, "Test 123");
   }
 
   animateScore() {
