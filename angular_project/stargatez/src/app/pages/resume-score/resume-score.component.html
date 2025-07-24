@@ -1,4 +1,6 @@
 <app-header [videoHeader]="false"></app-header>
+<app-error-popup [show]="showErrorPopup" [message]="errorPopupMessage" (close)="closeErrorPopup()">
+</app-error-popup>
 <div>
     <!-- ✅ Loader (outside of flex box) -->
     <ng-container *ngIf="showLoader; else scoreSection">

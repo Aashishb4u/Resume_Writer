@@ -5,102 +5,51 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
-})
+}) 
 export class ApiService {
-  baseURL: string = appConstants.baseURLAdminAPIs;
-  contactBaseURL: string = appConstants.contactAPIs;
+  baseURL: string = `${appConstants.careerFluteAppURL}/api`;
   showSpinner$ = new BehaviorSubject<boolean>(false);
-  jsonFilePath = 'assets/json/blogs.json'; // Path to the JSON file
-  GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${appConstants.GEMINI_API_KEY}`; // Update with actual Gemini API endpoint
-  baseUrl: any = "https://careerflute.com/api/parse-resume";
-  submitCvUrl: any = "https://careerflute.com/api/save-resume";
+  jsonFilePath = 'assets/json/blogs.json';
+  // submitCvUrl: any = "https://careerflute.com/api/save-resume";
 
   constructor(private http: HttpClient) { }
-
-  parseResume(data: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
-    return this.http.post(`${this.GEMINI_API_URL}`, data, { headers });
-  }
 
   parseResumeAllFiles(file: any) {
     const formData = new FormData();
     formData.append('resume_file', file);
-
-    return this.http.post(`${this.baseUrl}`, formData, {
+    return this.http.post(`${this.baseURL}/parse-resume`, formData, {
       headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
     });
   }
 
   getDynamicDay(day) {
-    let dayString = 'Day';
-    if (+day > 1 || +day === 0) {
-      dayString = 'Days';
-    }
-    return dayString;
+    return (+day > 1 || +day === 0) ? 'Days' : 'Day';
   }
 
   getDynamicYear(year) {
-    let yearString = 'Year';
-    if (+year > 1 || +year === 0 || year === '30+') {
-      yearString = 'Years';
-    }
-    return yearString;
+    return (+year > 1 || +year === 0 || year === '30+') ? 'Years' : 'Year';
   }
 
   getDynamicMonth(month) {
-    let monthString = 'Month';
-    if (+month > 1 || +month === 0) {
-      monthString = 'Months';
-    }
-    return monthString;
+    return (+month > 1 || +month === 0) ? 'Months' : 'Month';
   }
 
   getDynamicLac(lac) {
-    let lacString = 'Lac';
-    if (+lac > 1 || +lac === 0) {
-      lacString = 'Lacs';
-    }
-    return lacString;
+    return (+lac > 1 || +lac === 0) ? 'Lacs' : 'Lac';
   }
 
   getDynamicThousand(thousand) {
-    let thousandString = 'Thousand';
-    if (+thousand > 1 || +thousand === 0) {
-      thousandString = 'Thousands';
-    }
-    return thousandString;
+    return (+thousand > 1 || +thousand === 0) ? 'Thousands' : 'Thousand';
   }
 
   submitCvData(formData: any) {
     const data = new FormData();
+    if (formData.resumeFile) data.append('resume_file', formData.resumeFile);
+    if (formData.partnerName) data.append('partner_name', formData.partnerName);
+    if (formData.partnerEmail) data.append('partner_email', formData.partnerEmail);
+    if (formData.partnerPhoneNumber) data.append('partner_phone_number', formData.partnerPhoneNumber);
+    if (formData.partner_id) data.append('partner_id', formData.partner_id);
 
-    // Append resume file if available
-    if (formData.resumeFile) {
-      data.append('resume_file', formData.resumeFile);
-    }
-    // Append resume file if available
-    if (formData.partnerName) {
-      data.append('partner_name', formData.partnerName);
-    }
-
-    // Append resume file if available
-    if (formData.partnerEmail) {
-      data.append('partner_email', formData.partnerEmail);
-    }
-
-    // Append resume file if available
-    if (formData.partnerPhoneNumber) {
-      data.append('partner_phone_number', formData.partnerPhoneNumber);
-    }
-
-    if (formData.partner_id) {
-      data.append('partner_id', formData.partner_id);
-    }
-
-    // Map form fields to API expected fields
     data.append('candidate_name', formData.fullName);
     data.append('phone_number', formData.phoneNumber);
     data.append('email', formData.email);
@@ -127,7 +76,7 @@ export class ApiService {
     data.append('resume_content', formData.resumeContent || '');
     data.append('submitted_from', formData.submitted_from || '');
 
-    return this.http.post(`${this.submitCvUrl}`, data, {
+    return this.http.post(`${this.baseURL}/save-resume`, data, {
       headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
     });
   }
@@ -136,15 +85,61 @@ export class ApiService {
     return this.http.get('https://restcountries.com/v3.1/all');
   }
 
-  // fetchAllCities() {
-  //   return this.http.get('https://countriesnow.space/api/v0.1/countries/population/cities');
-  // }
-
   fetchAllCities(params: { search: string }) {
-    return this.http.post(`https://careerflute.com/api/cities?search=${params.search}`, params);
+    return this.http.post(`${this.baseURL}/cities?search=${params.search}`, params);
   }
 
   fetchAllPartners(params: { search: string }) {
-    return this.http.post(`https://careerflute.com/api/partners?search=${params.search}`, params);
+    return this.http.post(`${this.baseURL}/partners?search=${params.search}`, params);
+  }
+
+  // fetchResumeParsing(params) {
+  //   return this.http.post(`https://careerflute.com/api/parse-resume-ats`, params);
+  // }
+
+  // fetchResumeScore(params, id) {
+  //   return this.http.post(`https://careerflute.com/api/parse-ats-score?ats_uuid=${id}`, params);
+  // }
+
+  // New APIs from Postman JSON
+  parseResumeAts(file: File) {
+    const formData = new FormData();
+    formData.append('resume_file', file);
+    return this.http.post(`${this.baseURL}/parse-resume-ats`, formData, {
+      headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
+    });
+  }
+
+  saveResumeAts(file: File, queryParams: {
+    total_experience_months: number,
+    current_salary_lacs: number,
+    current_salary_thousands?: number,
+    notice_period: number,
+    comments?: string,
+    current_company: string,
+    qualification: string
+  }) {
+    const formData = new FormData();
+    formData.append('resume_file', file);
+
+    // Constructing query string manually
+    const queryString =
+      `total_experience_months=${queryParams.total_experience_months}` +
+      `&current_salary_lacs=${queryParams.current_salary_lacs}` +
+      `&current_salary_thousands=${queryParams.current_salary_thousands ?? ''}` +
+      `&notice_period=${queryParams.notice_period}` +
+      `&comments=${queryParams.comments ?? ''}` +
+      `&current_company=${queryParams.current_company}` +
+      `&qualification=${queryParams.qualification}`;
+
+    return this.http.post(`${this.baseURL}/save-resume-ats?${queryString}`, formData, {
+      headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
+    });
+  }
+
+  parseAtsScore(ats_uuid: string) {
+    return this.http.post(`${this.baseURL}/parse-ats-score?ats_uuid=${ats_uuid}`, new FormData(), {
+      headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
+    });
   }
 }

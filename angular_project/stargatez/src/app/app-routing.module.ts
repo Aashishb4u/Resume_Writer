@@ -23,7 +23,7 @@ const routes: Routes = [
   { path:  'strategic-staffing', component: StrategicStaffingComponent},
   { path:  'resume-writer', component: ResumeWriterComponent},
   { path:  'career-flute', component: CareerFluteComponent},
-  { path:  'resume-score', component: ResumeScoreComponent},
+  { path: 'resume-score/:id', component: ResumeScoreComponent }
 ];
 
 const routerOptions: ExtraOptions = {

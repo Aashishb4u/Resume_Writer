@@ -4,24 +4,23 @@ import { ApiService } from '../../services/api.service';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { Router } from '@angular/router';
 
-
 declare var AOS: any;
 
 @Component({
   selector: 'app-resume-writer',
   standalone: false,
-templateUrl: './resume-writer.component.html',
+  templateUrl: './resume-writer.component.html',
   styleUrl: './resume-writer.component.scss',
 })
 export class ResumeWriterComponent implements OnInit {
   videoLink: any = 'assets/videos/resume_writer.mp4';
   errorPopupMessage: string = '';
   showErrorPopup: boolean = false;
-  yearsList = [...Array(30).keys(), '30+'];  // [0,1,...,30,'30+']
-  monthsList = [...Array(12).keys()];  // [0,1,...,11]
-  lacsList = [...Array(100).keys()];  // [0,1,...,10]
-  thousandsList = [...Array(100).keys()];  // [0,1,...,9]
-  noticePeriodList = [...Array(91).keys()];  // [0,1,...,90]
+  yearsList = [...Array(30).keys(), '30+']; // [0,1,...,30,'30+']
+  monthsList = [...Array(12).keys()]; // [0,1,...,11]
+  lacsList = [...Array(100).keys()]; // [0,1,...,10]
+  thousandsList = [...Array(100).keys()]; // [0,1,...,9]
+  noticePeriodList = [...Array(91).keys()]; // [0,1,...,90]
   cvForm: FormGroup | any;
   parsedData: any = null;
   errorMessage: string = '';
@@ -51,8 +50,7 @@ export class ResumeWriterComponent implements OnInit {
     public apiService: ApiService,
     private snackBarService: SnackBarService,
     private router: Router
-  ) { }
-
+  ) {}
 
   resetCvForm() {
     // Reset form after successful submission
@@ -70,10 +68,9 @@ export class ResumeWriterComponent implements OnInit {
       expectedSalaryLacs: '0',
       expectedSalaryThousands: '0',
       noticePeriod: '0',
-      skills: []
+      skills: [],
     });
   }
-
 
   onSubmit() {
     if (this.cvForm?.invalid) {
@@ -81,7 +78,6 @@ export class ResumeWriterComponent implements OnInit {
       this.errorPopupMessage = 'Please fill in all required fields.';
       this.showErrorPopup = true;
       return;
-
     }
     this.router.navigate(['/resume-score']);
 
@@ -182,7 +178,10 @@ export class ResumeWriterComponent implements OnInit {
       currentSalaryThousands: ['0', Validators.required],
       expectedSalaryLacs: ['0', Validators.required],
       expectedSalaryThousands: ['0', Validators.required],
-      noticePeriod: ['0', [Validators.required, Validators.min(0), Validators.max(90)]],
+      noticePeriod: [
+        '0',
+        [Validators.required, Validators.min(0), Validators.max(90)],
+      ],
       resume: [''],
       // Removed fields (commented below)
       // fullName: ['', Validators.required],
@@ -371,44 +370,46 @@ export class ResumeWriterComponent implements OnInit {
     this.apiService.showSpinner$.next(true);
 
     // this.apiService.parseResume(requestBody).subscribe((response: any) => {
-    this.apiService.parseResumeAllFiles(file).subscribe((response: any) => {
-      if (response.countryCode && !response.countryCode.includes('+')) {
-        response.countryCode = '+' + response.countryCode.trim();
-      }
-      const parsedData = Object.fromEntries(
-        Object.entries(response).filter(([_, v]) => v !== null)
-      );
+    this.apiService.parseResumeAts(file).subscribe(
+      (response: any) => {
+        if (response.countryCode && !response.countryCode.includes('+')) {
+          response.countryCode = '+' + response.countryCode.trim();
+        }
+        const parsedData = Object.fromEntries(
+          Object.entries(response).filter(([_, v]) => v !== null)
+        );
 
-      if (response.designation) {
-        this.cvForm.get('designation').setValue(response.designation);
-      }
-      this.apiService.showSpinner$.next(false);
-      this.cvForm.patchValue(parsedData);
-      this.errorMessage = '';
-    }, (error: any) => {
-      this.apiService.showSpinner$.next(false);
-      let errorMsg = '';
-      this.resetCvForm();
-      if (error.status === 400) {
-        errorMsg =
-          error.error.error || 'Bad request. Please check your input.';
-      } else if (error.status === 401) {
-        errorMsg = 'Unauthorized. Please login again.';
-      } else if (error.status === 413) {
-        errorMsg = 'File size too large. Please upload a smaller file.';
-      } else if (error.status === 429) {
-        errorMsg = 'Too many requests. Please try again later.';
-      } else {
-        errorMsg =
-          'An error occurred while parsing the resume. Please try again.';
-      }
-      this.errorMessage = errorMsg;
-      console.error('Resume parsing error:', error);
+        if (response.designation) {
+          this.cvForm.get('designation').setValue(response.designation);
+        }
+        this.apiService.showSpinner$.next(false);
+        this.cvForm.patchValue(parsedData);
+        this.errorMessage = '';
+      },
+      (error: any) => {
+        this.apiService.showSpinner$.next(false);
+        let errorMsg = '';
+        this.resetCvForm();
+        if (error.status === 400) {
+          errorMsg =
+            error.error.error || 'Bad request. Please check your input.';
+        } else if (error.status === 401) {
+          errorMsg = 'Unauthorized. Please login again.';
+        } else if (error.status === 413) {
+          errorMsg = 'File size too large. Please upload a smaller file.';
+        } else if (error.status === 429) {
+          errorMsg = 'Too many requests. Please try again later.';
+        } else {
+          errorMsg =
+            'An error occurred while parsing the resume. Please try again.';
+        }
+        this.errorMessage = errorMsg;
+        console.error('Resume parsing error:', error);
 
-      // Show error popup using SnackBarService directly
-      this.errorPopupMessage = errorMsg;
-      this.showErrorPopup = true;
-    },
+        // Show error popup using SnackBarService directly
+        this.errorPopupMessage = errorMsg;
+        this.showErrorPopup = true;
+      }
     );
   }
 
