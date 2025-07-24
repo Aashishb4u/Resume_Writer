@@ -92,15 +92,18 @@ export class ResumeWriterComponent implements OnInit {
       formData.resumeFile = this.fileInput.nativeElement.files[0];
     }
 
-    this.apiService.saveResumeAts(this.cvForm.get('resumeFile')?.value, formData).subscribe({
+
+    this.apiService.saveResumeAts(formData.resumeFile, formData).subscribe({
       next: (response: any) => {
         console.log('CV submitted successfully:', response);
         this.apiService.showSpinner$.next(false);
 
         // Show success popup using SnackBarService
         this.snackBarService.showSuccess(
-          'Your CV has been submitted successfully!'
+          'Your CV has been Processed successfully!'
         );
+
+        this.router.navigate(['/resume-score', response.ats_uuid]);
 
         // Reset form after successful submission
         this.resetCvForm();
@@ -219,7 +222,6 @@ export class ResumeWriterComponent implements OnInit {
   isDownloading: boolean = false;
 
   onFileSelected(event: any) {
-    this.cvForm.get('resumeFile')?.setValue(null);
     event.preventDefault(); // Prevent unintended form submissions
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -239,9 +241,6 @@ export class ResumeWriterComponent implements OnInit {
 
     reader.onload = async (e: any) => {
       try {
-        this.cvForm.patchValue({
-          resumeFile: file,
-        });
         const fileContent = e.target.result;
         const base64Content = fileContent.split(',')[1];
         this.parseResume(base64Content, file);
