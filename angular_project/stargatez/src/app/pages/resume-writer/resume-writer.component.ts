@@ -68,6 +68,7 @@ export class ResumeWriterComponent implements OnInit {
       expectedSalaryLacs: '0',
       expectedSalaryThousands: '0',
       noticePeriod: '0',
+      resumeFile: null,
       skills: [],
     });
   }
@@ -91,7 +92,7 @@ export class ResumeWriterComponent implements OnInit {
       formData.resumeFile = this.fileInput.nativeElement.files[0];
     }
 
-    this.apiService.submitCvData(formData).subscribe({
+    this.apiService.saveResumeAts(this.cvForm.get('resumeFile')?.value, formData).subscribe({
       next: (response: any) => {
         console.log('CV submitted successfully:', response);
         this.apiService.showSpinner$.next(false);
@@ -218,6 +219,7 @@ export class ResumeWriterComponent implements OnInit {
   isDownloading: boolean = false;
 
   onFileSelected(event: any) {
+    this.cvForm.get('resumeFile')?.setValue(null);
     event.preventDefault(); // Prevent unintended form submissions
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -237,6 +239,9 @@ export class ResumeWriterComponent implements OnInit {
 
     reader.onload = async (e: any) => {
       try {
+        this.cvForm.patchValue({
+          resumeFile: file,
+        });
         const fileContent = e.target.result;
         const base64Content = fileContent.split(',')[1];
         this.parseResume(base64Content, file);

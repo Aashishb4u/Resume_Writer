@@ -110,27 +110,19 @@ export class ApiService {
     });
   }
 
-  saveResumeAts(file: File, queryParams: {
-    total_experience_months: number,
-    current_salary_lacs: number,
-    current_salary_thousands?: number,
-    notice_period: number,
-    comments?: string,
-    current_company: string,
-    qualification: string
-  }) {
+  saveResumeAts(file: File, queryParams: any) {
     const formData = new FormData();
     formData.append('resume_file', file);
 
     // Constructing query string manually
     const queryString =
-      `total_experience_months=${queryParams.total_experience_months}` +
-      `&current_salary_lacs=${queryParams.current_salary_lacs}` +
-      `&current_salary_thousands=${queryParams.current_salary_thousands ?? ''}` +
-      `&notice_period=${queryParams.notice_period}` +
-      `&comments=${queryParams.comments ?? ''}` +
-      `&current_company=${queryParams.current_company}` +
-      `&qualification=${queryParams.qualification}`;
+    `total_experience_months=${queryParams.totalExpMonth}` +
+    `&current_salary_lacs=${queryParams.currentSalaryLacs}` +
+    `&current_salary_thousands=${queryParams.currentSalaryThousands ?? ''}` +
+    `&notice_period=${queryParams.noticePeriod}` +
+    `&comments=${queryParams.comments ?? ''}` +
+    `&current_company=${queryParams.currentCompany}` +
+    `&qualification=${queryParams.qualification}`;
 
     return this.http.post(`${this.baseURL}/save-resume-ats?${queryString}`, formData, {
       headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
