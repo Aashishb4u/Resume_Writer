@@ -8,7 +8,8 @@ declare var AOS: any;
 
 @Component({
   selector: 'app-partner-portal',
-  templateUrl: './partner-portal.component.html',
+  standalone: false,
+templateUrl: './partner-portal.component.html',
   styleUrl: './partner-portal.component.scss',
 })
 export class PartnerPortalComponent implements OnInit {

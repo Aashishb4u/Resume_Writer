@@ -9,7 +9,8 @@ declare var AOS: any;
 
 @Component({
   selector: 'app-resume-writer',
-  templateUrl: './resume-writer.component.html',
+  standalone: false,
+templateUrl: './resume-writer.component.html',
   styleUrl: './resume-writer.component.scss',
 })
 export class ResumeWriterComponent implements OnInit {

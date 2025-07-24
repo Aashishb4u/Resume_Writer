@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-error-popup',
-  templateUrl: './error-popup.component.html'
+  standalone: false,
+templateUrl: './error-popup.component.html'
 })
 export class ErrorPopupComponent {
   @Input() message: string = '';

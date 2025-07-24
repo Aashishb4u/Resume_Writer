@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-resume-tailoring',
-  templateUrl: './resume-tailoring.component.html',
+  standalone: false,
+templateUrl: './resume-tailoring.component.html',
   styleUrl: './resume-tailoring.component.scss'
 })
 export class ResumeTailoringComponent {

@@ -12,7 +12,8 @@ declare var AOS: any;
 
 @Component({
   selector: 'app-job-seeker',
-  templateUrl: './job-seeker.component.html',
+  standalone: false,
+templateUrl: './job-seeker.component.html',
   styleUrl: './job-seeker.component.scss',
 })
 export class JobSeekerComponent implements OnInit, OnDestroy {

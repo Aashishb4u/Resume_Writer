@@ -3,7 +3,8 @@ declare var AOS: any;
 
 @Component({
   selector: 'app-industries',
-  templateUrl: './industries.component.html',
+  standalone: false,
+templateUrl: './industries.component.html',
   styleUrl: './industries.component.scss'
 })
 export class IndustriesComponent implements OnInit{

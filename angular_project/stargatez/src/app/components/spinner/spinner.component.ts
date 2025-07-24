@@ -3,7 +3,8 @@ import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-spinner',
-  templateUrl: './spinner.component.html',
+  standalone: false,
+templateUrl: './spinner.component.html',
   styleUrl: './spinner.component.scss'
 })
 export class SpinnerComponent {

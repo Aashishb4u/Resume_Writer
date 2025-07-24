@@ -4,7 +4,8 @@ declare var AOS: any;
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
+  standalone: false,
+templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {

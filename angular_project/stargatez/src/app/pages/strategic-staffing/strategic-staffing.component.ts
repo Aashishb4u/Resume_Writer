@@ -4,7 +4,8 @@ declare var AOS: any;
 
 @Component({
   selector: 'app-strategic-staffing',
-  templateUrl: './strategic-staffing.component.html',
+  standalone: false,
+templateUrl: './strategic-staffing.component.html',
   styleUrls: ['./strategic-staffing.component.scss']
 })
 export class StrategicStaffingComponent implements OnInit {

@@ -4,7 +4,8 @@ import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-career-flute',
-  templateUrl: './career-flute.component.html',
+  standalone: false,
+templateUrl: './career-flute.component.html',
   styleUrl: './career-flute.component.scss',
 })
 export class CareerFluteComponent implements OnInit {

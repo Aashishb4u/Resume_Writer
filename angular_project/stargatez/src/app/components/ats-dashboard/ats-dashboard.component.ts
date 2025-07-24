@@ -3,7 +3,8 @@ import { text } from 'node:stream/consumers';
 
 @Component({
   selector: 'app-ats-dashboard',
-  templateUrl: './ats-dashboard.component.html',
+  standalone: false,
+templateUrl: './ats-dashboard.component.html',
   styleUrl: './ats-dashboard.component.scss'
 })
 export class AtsDashboardComponent implements OnInit {

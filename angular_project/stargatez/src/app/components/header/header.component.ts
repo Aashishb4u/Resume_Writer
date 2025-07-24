@@ -3,7 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { appConstants } from '../../../assets/constants/app.constants';
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  standalone: false,
+templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements AfterViewInit {

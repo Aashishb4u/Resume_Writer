@@ -4,7 +4,8 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-snack-bar',
-  templateUrl: './snack-bar.component.html',
+  standalone: false,
+templateUrl: './snack-bar.component.html',
   styleUrl: './snack-bar.component.scss'
 })
 export class SnackBarComponent implements OnInit, OnDestroy {

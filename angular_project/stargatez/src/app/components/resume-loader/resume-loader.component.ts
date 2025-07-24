@@ -1,11 +1,17 @@
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-resume-loader',
-  templateUrl: './resume-loader.component.html'
+  standalone: false,
+templateUrl: './resume-loader.component.html'
 })
 export class ResumeLoaderComponent implements OnInit {
   @Output() loadingComplete = new EventEmitter<void>();
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   steps: string[] = [
     'Parsing your resume',
@@ -17,7 +23,9 @@ export class ResumeLoaderComponent implements OnInit {
   currentStep = 0;
 
   ngOnInit(): void {
-    this.animateSteps();
+    if (isPlatformBrowser(this.platformId)) {
+      this.animateSteps();
+    }
   }
 
   animateSteps() {

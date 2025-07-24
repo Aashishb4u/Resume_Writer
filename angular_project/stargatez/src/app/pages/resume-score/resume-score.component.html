@@ -2,6 +2,8 @@
 <div>
     <!-- ✅ Loader (outside of flex box) -->
     <ng-container *ngIf="showLoader; else scoreSection">
+    <!-- <ng-container > -->
+        <!-- intentionally using app-resume-loader from external/standalone module -->
         <app-resume-loader (loadingComplete)="handleLoadingComplete()"></app-resume-loader>
     </ng-container>
 
