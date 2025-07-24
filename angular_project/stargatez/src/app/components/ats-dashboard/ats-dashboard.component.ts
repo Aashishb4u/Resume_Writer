@@ -67,6 +67,21 @@ export class AtsDashboardComponent implements OnInit {
     }
   ];
 
+
+  shareBtn() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Check this out!',
+        text: 'Look at this awesome website!',
+        url: window.location.href
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      }).catch(console.error);
+    } else {
+      alert('Web Share API not supported on this browser.');
+    }
+  }
+
   ngOnInit(): void {
     this.animateScore();
     console.log(this.resumeScore, "Test 123");
