@@ -58,8 +58,8 @@ export class ResumeWriterComponent implements OnInit {
 
     // Set default values again
     this.cvForm.patchValue({
-      submitted_from: 'partner',
-      totalExpYear: '0',
+      submitted_from: 'resume_writing',
+      totalExpYears: '0',
       totalExpMonth: '0',
       relevantExpYear: '0',
       relevantExpMonth: '0',
@@ -68,7 +68,6 @@ export class ResumeWriterComponent implements OnInit {
       expectedSalaryLacs: '0',
       expectedSalaryThousands: '0',
       noticePeriod: '0',
-      resumeFile: null,
       skills: [],
     });
   }
@@ -173,9 +172,47 @@ export class ResumeWriterComponent implements OnInit {
       }
     }, 0);
     this.cvForm = this.fb.group({
+
+      fullName: [''],
+      email: [''],
+      phoneNumber: [''],
+      // homeTown: [''],
+      // submitted_from: ['resume_writing', Validators.required],
+      // qualification: ['', Validators.required],
+      // designation: ['', Validators.required],
+      // resumeContent: [''],
+      // skills: [[], Validators.required],
+      // totalExpYear: [
+      //   '0',
+      //   [Validators.required],
+      // ], 
+      // totalExpMonth: [
+      //   '0',
+      //   [Validators.required],
+      // ],
+      // relevantExpYear: [
+      //   '0',
+      //   [Validators.required],
+      // ], 
+      // relevantExpMonth: [
+      //   '0',
+      //   [Validators.required],
+      // ],
+      // currentCompany: ['', Validators.required],
+      // currentSalaryLacs: ['0', Validators.required],
+      // currentSalaryThousands: ['0', Validators.required],
+      // expectedSalaryLacs: ['0', Validators.required],
+      // expectedSalaryThousands: ['0', Validators.required],
+      // noticePeriod: [
+      //   '0',
+      //   [Validators.required, Validators.min(0), Validators.max(90)],
+      // ],
+      // resume: [''],
+      // comments: [''],
+      // skillsInput: [''],
       submitted_from: ['resume_writing', Validators.required],
       designation: ['', Validators.required],
-      totalExpYear: ['0', Validators.required],
+      totalExpYears: ['0', Validators.required],
       totalExpMonth: ['0', Validators.required],
       currentCompany: ['', Validators.required],
       currentSalaryLacs: ['0', Validators.required],
@@ -187,25 +224,9 @@ export class ResumeWriterComponent implements OnInit {
         [Validators.required, Validators.min(0), Validators.max(90)],
       ],
       resume: [''],
-      // Removed fields (commented below)
-      // fullName: ['', Validators.required],
-      // email: ['', [Validators.required]],
-      // phoneNumber: ['', [Validators.required]],
       currentLocation: ['', Validators.required],
-      // homeTown: ['', Validators.required],
       qualification: ['', Validators.required],
-      // resumeContent: [''],
-      // skills: [[], Validators.required],
-      // relevantExpYear: ['0', [Validators.required]],
-      // relevantExpMonth: ['0', [Validators.required]],
-      // comments: [''],
-      // skillsInput: ['']
     });
-    // this.fetchCountries();
-    // this.getAllCities();
-    // Initialize the character count if there's an initial value
-    // const initialComments = this.cvForm.get('comments')?.value || '';
-    // this.commentCharCount = initialComments.length;
   }
 
   // Password toggle methods removed as they're not needed

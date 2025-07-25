@@ -767,8 +767,8 @@
                                 Total Experience <span class="text-red-500">*</span></label>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <select formControlName="totalExpYear"
-                                        class="{{cvForm.get('totalExpYear')?.invalid && cvForm.get('totalExpYear')?.touched ? 'border-red-500 border-2' : ''}} border placeholder-sm bg-white text-gray-800 text-sm md:text-base placeholder-[#14176CCC]/60 placeholder:text-xs border-blue-900 p-4 rounded-lg rounded w-full">
+                                    <select formControlName="totalExpYears"
+                                        class="{{cvForm.get('totalExpYears')?.invalid && cvForm.get('totalExpYears')?.touched ? 'border-red-500 border-2' : ''}} border placeholder-sm bg-white text-gray-800 text-sm md:text-base placeholder-[#14176CCC]/60 placeholder:text-xs border-blue-900 p-4 rounded-lg rounded w-full">
                                         <option *ngFor="let year of yearsList" [value]="year">{{year}}
                                             {{apiService.getDynamicYear(year)}}</option>
                                     </select>

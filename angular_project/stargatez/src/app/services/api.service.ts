@@ -118,6 +118,9 @@ export class ApiService {
     const queryString =
     `total_experience_months=${queryParams.totalExpMonth}` +
     `&current_salary_lacs=${queryParams.currentSalaryLacs}` +
+    `&email=${queryParams.email}` +
+    `&phone_number=${queryParams.phoneNumber}` +
+    `&expected_salary_thousands=${queryParams.expectedSalaryThousands}` +
     `&current_salary_thousands=${queryParams.currentSalaryThousands ?? ''}` +
     `&notice_period=${queryParams.noticePeriod}` +
     `&comments=${queryParams.comments ?? ''}` +
