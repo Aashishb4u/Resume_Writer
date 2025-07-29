@@ -1,3 +1,4 @@
+
 <div class="w-full container mx-auto px-4 md:px-6 pt-28 md:pb-20 space-y-10">
     <!-- Header + Share -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
@@ -16,16 +17,19 @@
             </div>
             <div class="flex flex-col gap-6 justify-center items-center mb-8">
                 <div class="relative w-[200px] h-[200px]">
-                    <svg viewBox="0 0 36 36" class="absolute top-0 left-0 w-full h-full -rotate-90">
-                        <path d="M18 2.0845a15.9155 15.9155 0 1 0 0.0001 0" class="text-gray-200" fill="none"
-                            stroke="currentColor" stroke-width="3.8" />
-                        <path d="M18 2.0845a15.9155 15.9155 0 1 1-8.012 29.8455"
-                            [attr.stroke-dasharray]="score + ', 100'" class="text-blue-500" fill="none"
-                            stroke="currentColor" stroke-width="3.8" />
-                    </svg>
-                    <div class="absolute inset-0 flex items-center justify-center text-3xl font-bold text-blue-600">
-                        {{ resumeScore?.resume_score }}%
-                    </div>
+                    <apx-chart 
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [labels]="chartOptions.labels"
+                    [colors]="chartOptions.colors"
+                    [plotOptions]="chartOptions.plotOptions"
+                    [dataLabels]="chartOptions.dataLabels"
+                    [legend]="chartOptions.legend"
+                    [stroke]="chartOptions.stroke"
+                    [grid]="chartOptions.grid"
+                    [yaxis]="chartOptions.yaxis"
+                    [xaxis]="chartOptions.xaxis">
+                  </apx-chart>
                 </div>
             </div>
             <div class="text-xl mt-2 mb-4 text-green-500 text-center">
@@ -82,8 +86,10 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div *ngFor="let suggestion of suggestions; let index = index" class="bg-white rounded-xl shadow p-5">
             <div class="flex items-start gap-3 mb-2">
-                <img [src]="suggestion.icon" class="w-6 h-6 mt-1" alt="{{ suggestion.title }} Icon" />
-                <h3 class="font-semibold text-gray-800 text-lg">{{ suggestion.title }}</h3>
+                <img [src]="suggestion.icon" class="w-6 h-6 mt-1" />
+                <h3 class="font-semibold text-gray-800 text-lg">
+                    {{ suggestion?.title | titlecase }}
+                </h3>
             </div>
             <p class="text-base text-gray-600 leading-snug mb-4">
                 {{ suggestion.description }}

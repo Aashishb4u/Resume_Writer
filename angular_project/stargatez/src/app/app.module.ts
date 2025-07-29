@@ -24,6 +24,7 @@ import { ResumeLoaderComponent } from './components/resume-loader/resume-loader.
 import { ScoreCardComponent } from './components/score-card/score-card.component';
 import { ResumeTailoringComponent } from './components/resume-tailoring/resume-tailoring.component';
 import { AtsDashboardComponent } from './components/ats-dashboard/ats-dashboard.component';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AtsDashboardComponent } from './components/ats-dashboard/ats-dashboard.
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgApexchartsModule
   ],
   providers: [
     provideClientHydration()
