@@ -56,12 +56,8 @@
                 <div>
                     <p class="text-gray-800 font-semibold text-base mt-4 mb-4"><img src="./assets/images/check.png"
                             alt="warning" class="w-4 h-4 inline-block"> Found Keywords</p>
-                    <ul class="space-y-2">
-                        <li *ngFor="let kw of resumeScore?.found_keywords" class="flex justify-between text-base text-gray-700">
-                            <!-- <i class="fa fa-"></i> -->
-                            {{ kw }}
-                            <!-- <span class="text-yellow-500 font-medium">{{ kw.count }} times</span> -->
-                        </li>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li *ngFor="let kw of resumeScore?.found_keywords">{{ kw }}</li>
                     </ul>
                 </div>
 
@@ -76,15 +72,15 @@
             refine your
             resume and increase your chances of passing ATS scans.</p>
         <button
-            class="px-6 py-2 w-full md:w-1/2 rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-medium text-base shadow mt-4"><img
-                src="./assets/images/download.png" alt="download" class="w-4 h-4 inline-block mr-2 cursor-pointer">
+            class="px-6 py-2 w-full md:w-[250px] rounded-lg text-white bg-blue-600 hover:bg-blue-700 font-medium text-base shadow mt-4"><img
+                src="./assets/images/download.png" alt="download" class="invert w-4 h-4 inline-block mr-2 cursor-pointer">
             Register Now</button>
     </div>
 
     <!-- Suggestions Section -->
     <h2 class="text-xl md:text-3xl font-semibold text-gray-900">Suggestions and Improvements</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div *ngFor="let suggestion of suggestions; let index = index" class="bg-white rounded-xl shadow p-5">
+        <div *ngFor="let suggestion of suggestions; let index = index" class="hover:scale-105 hover:shadow-md trasition-all duration-300 bg-white rounded-xl shadow p-5">
             <div class="flex items-start gap-3 mb-2">
                 <img [src]="suggestion.icon" class="w-6 h-6 mt-1" />
                 <h3 class="font-semibold text-gray-800 text-lg">
