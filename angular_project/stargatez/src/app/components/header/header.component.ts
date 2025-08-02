@@ -22,18 +22,20 @@ export class HeaderComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const phoneVideo = this.phoneVideoElement.nativeElement;
-      const webVideo = this.webVideoElement.nativeElement;
-      phoneVideo.muted = true;
-      webVideo.muted = true;
-
-      // Listen for mousemove event
-      window.addEventListener('mousemove', () => this.explicitPlayVideo(phoneVideo));
-      window.addEventListener('mousemove', () => this.explicitPlayVideo(webVideo));
-
+      if(this.phoneVideoElement && this.webVideoElement) {
+        const phoneVideo = this.phoneVideoElement.nativeElement;
+        const webVideo = this.webVideoElement.nativeElement;
+        phoneVideo.muted = true;
+        webVideo.muted = true;
+  
+        // Listen for mousemove event
+        window.addEventListener('mousemove', () => this.explicitPlayVideo(phoneVideo));
+        window.addEventListener('mousemove', () => this.explicitPlayVideo(webVideo));  
+        this.playVideo();
+      }
+     
     }
 
-    this.playVideo();
   }
 
   explicitPlayVideo(video: HTMLVideoElement) {

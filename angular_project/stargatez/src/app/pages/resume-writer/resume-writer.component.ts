@@ -58,6 +58,9 @@ export class ResumeWriterComponent implements OnInit {
 
     // Set default values again
     this.cvForm.patchValue({
+      fullName: '',
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: '',
       submitted_from: 'resume_writing',
       totalExpYears: '0',
       totalExpMonth: '0',
@@ -114,7 +117,7 @@ export class ResumeWriterComponent implements OnInit {
       error: (error: any) => {
         console.error('Error submitting CV:', error);
         this.apiService.showSpinner$.next(false);
-        this.resetCvForm();
+      
         // Show error popup using SnackBarService
         let errorMsg =
           'There was an error submitting your CV. Please try again.';
@@ -134,8 +137,17 @@ export class ResumeWriterComponent implements OnInit {
     });
   }
 
+  resetEveryThing() {
+    this.resetCvForm();
+    this.fileName = '';
+    this.fileSize = '';
+    this.fileUrl = null;
+    this.fileUploaded = false;
+  }
+
   closeErrorPopup() {
     this.showErrorPopup = false;
+    this.resetEveryThing();
   }
 
   validateNumberInput(event: KeyboardEvent) {
@@ -415,18 +427,12 @@ export class ResumeWriterComponent implements OnInit {
         this.apiService.showSpinner$.next(false);
         let errorMsg = '';
         this.resetCvForm();
-        if (error.status === 400) {
-          errorMsg =
-            error.error.error || 'Bad request. Please check your input.';
-        } else if (error.status === 401) {
-          errorMsg = 'Unauthorized. Please login again.';
-        } else if (error.status === 413) {
+        // debugger;
+        errorMsg = error.error.error;
+        if (error.status === 413) {
           errorMsg = 'File size too large. Please upload a smaller file.';
         } else if (error.status === 429) {
           errorMsg = 'Too many requests. Please try again later.';
-        } else {
-          errorMsg =
-            'An error occurred while parsing the resume. Please try again.';
         }
         this.errorMessage = errorMsg;
         console.error('Resume parsing error:', error);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { text } from 'node:stream/consumers';
 import {
   ApexNonAxisChartSeries,
@@ -166,23 +166,28 @@ export class AtsDashboardComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['resumeScore'] && changes['resumeScore'].currentValue && changes['resumeScore'].currentValue.resume_score) {
+      this.chartOptions = this.getChartOptions(+(changes['resumeScore'].currentValue.resume_score));
+
+      const suggestionMap: { [key: string]: string } = {};
+      this.resumeScore.suggestions_for_improvement.forEach((item) => {
+        const key = Object.keys(item)[0];
+        suggestionMap[key] = item[key];
+      });
+  
+      // Step 2: Update suggestions array using the map
+      this.suggestions = this.suggestions.map((suggestion) => ({
+        ...suggestion,
+        title: suggestion.key.split('_').join(" "),
+        description: suggestionMap[suggestion.key] || ''
+      }));
+    }
+  }
+  
   ngOnInit(): void {
     this.animateScore();
-    console.log(this.resumeScore, "Test 123");
-    this.chartOptions = this.getChartOptions(+this.resumeScore.resume_score); // or from API response
     // Step 1: Convert resumeScore array to key-value map
-    const suggestionMap: { [key: string]: string } = {};
-    this.resumeScore.suggestions_for_improvement.forEach((item) => {
-      const key = Object.keys(item)[0];
-      suggestionMap[key] = item[key];
-    });
-
-    // Step 2: Update suggestions array using the map
-    this.suggestions = this.suggestions.map((suggestion) => ({
-      ...suggestion,
-      title: suggestion.key.split('_').join(" "),
-      description: suggestionMap[suggestion.key] || ''
-    }));
   }
 
   animateScore() {

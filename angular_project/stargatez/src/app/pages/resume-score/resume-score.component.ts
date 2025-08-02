@@ -13,6 +13,7 @@ export class ResumeScoreComponent {
   errorPopupMessage;
   showErrorPopup = false;
   resumeScore: any = null;
+  showLoader = true; // Show loader initially
 
   constructor(private route: ActivatedRoute, public apiService: ApiService, public router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -29,7 +30,6 @@ export class ResumeScoreComponent {
     this.showErrorPopup = false;
   }
 
-  showLoader = true; // Show loader initially
 
   fetchResumeScore() {
     this.apiService.parseAtsScore(this.id).subscribe((response: any) => {
@@ -48,6 +48,6 @@ export class ResumeScoreComponent {
 
   // This will be called when loader finishes animation
   handleLoadingComplete() {
-    this.showLoader = false;
+    // this.showLoader = false;
   }
 }
