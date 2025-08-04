@@ -184,44 +184,13 @@ export class ResumeWriterComponent implements OnInit {
       }
     }, 0);
     this.cvForm = this.fb.group({
-
       fullName: [''],
       email: [''],
       phoneNumber: [''],
-      // homeTown: [''],
-      // submitted_from: ['resume_writing', Validators.required],
-      // qualification: ['', Validators.required],
-      // designation: ['', Validators.required],
-      // resumeContent: [''],
-      // skills: [[], Validators.required],
-      // totalExpYear: [
-      //   '0',
-      //   [Validators.required],
-      // ], 
-      // totalExpMonth: [
-      //   '0',
-      //   [Validators.required],
-      // ],
-      // relevantExpYear: [
-      //   '0',
-      //   [Validators.required],
-      // ], 
-      // relevantExpMonth: [
-      //   '0',
-      //   [Validators.required],
-      // ],
-      // currentCompany: ['', Validators.required],
-      // currentSalaryLacs: ['0', Validators.required],
-      // currentSalaryThousands: ['0', Validators.required],
-      // expectedSalaryLacs: ['0', Validators.required],
-      // expectedSalaryThousands: ['0', Validators.required],
-      // noticePeriod: [
-      //   '0',
-      //   [Validators.required, Validators.min(0), Validators.max(90)],
-      // ],
-      // resume: [''],
-      // comments: [''],
-      // skillsInput: [''],
+      currentLocation: ['', Validators.required],
+      homeTown: [''],
+      skills: [[]],
+      qualification: ['', Validators.required],
       submitted_from: ['resume_writing', Validators.required],
       designation: ['', Validators.required],
       totalExpYears: ['0', Validators.required],
@@ -236,8 +205,6 @@ export class ResumeWriterComponent implements OnInit {
         [Validators.required, Validators.min(0), Validators.max(90)],
       ],
       resume: [''],
-      currentLocation: ['', Validators.required],
-      qualification: ['', Validators.required],
     });
   }
 

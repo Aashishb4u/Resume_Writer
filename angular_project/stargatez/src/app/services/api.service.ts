@@ -125,8 +125,12 @@ export class ApiService {
     `&current_salary_thousands=${queryParams.currentSalaryThousands ?? ''}` +
     `&notice_period=${queryParams.noticePeriod}` +
     `&comments=${queryParams.comments ?? ''}` +
+    `homeTown=${queryParams.homeTown}` +
+    `skills=${queryParams.skills.join(',')}` +
     `&current_company=${queryParams.currentCompany}` +
+    `current_location=${queryParams.currentLocation}` +
     `&qualification=${queryParams.qualification}`;
+
 
     return this.http.post(`${this.baseURL}/save-resume-ats?${queryString}`, formData, {
       headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
