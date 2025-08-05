@@ -113,8 +113,10 @@ export class ApiService {
   saveResumeAts(file: File, queryParams: any) {
     const formData = new FormData();
     formData.append('resume_file', file);
+    formData.append('skills', queryParams.skills);
+    formData.append('submitted_from', queryParams.submitted_from || '');
 
-    // Constructing query string manually
+    // Constructing query string manually   
     const queryString =
     `total_experience_months=${queryParams.totalExpMonth}` +
     `&current_salary_lacs=${queryParams.currentSalaryLacs}` +
@@ -125,8 +127,7 @@ export class ApiService {
     `&current_salary_thousands=${queryParams.currentSalaryThousands ?? ''}` +
     `&notice_period=${queryParams.noticePeriod}` +
     `&comments=${queryParams.comments ?? ''}` +
-    `homeTown=${queryParams.homeTown}` +
-    `skills=${queryParams.skills.join(',')}` +
+    `&homeTown=${queryParams.homeTown}` +
     `&current_company=${queryParams.currentCompany}` +
     `current_location=${queryParams.currentLocation}` +
     `&qualification=${queryParams.qualification}`;
