@@ -124,7 +124,7 @@ export class ApiService {
     if (queryParams.phoneNumber) data.append('phone_number', queryParams.phoneNumber);
     if (queryParams.email) data.append('email', queryParams.email);
     if (queryParams.skills) data.append('skills', queryParams.skills.join(','));
-    if (queryParams.totalExpYear) data.append('total_experience_years', queryParams.totalExpYear);
+    if (queryParams.totalExpYears) data.append('total_experience_years', queryParams.totalExpYears);
     if (queryParams.totalExpMonth) data.append('total_experience_months', queryParams.totalExpMonth);
     if (queryParams.relevantExpYear) data.append('relevant_experience_years', queryParams.relevantExpYear);
     if (queryParams.relevantExpMonth) data.append('relevant_experience_months', queryParams.relevantExpMonth);
