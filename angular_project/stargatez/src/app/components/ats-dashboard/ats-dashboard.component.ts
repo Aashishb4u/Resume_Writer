@@ -168,7 +168,7 @@ export class AtsDashboardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['resumeScore'] && changes['resumeScore'].currentValue && changes['resumeScore'].currentValue.resume_score) {
-      this.chartOptions = this.getChartOptions(+(changes['resumeScore'].currentValue.resume_score));
+      this.chartOptions = this.getChartOptions(+(changes['resumeScore'].currentValue.resume_score) - 10);
 
       const suggestionMap: { [key: string]: string } = {};
       this.resumeScore.suggestions_for_improvement.forEach((item) => {

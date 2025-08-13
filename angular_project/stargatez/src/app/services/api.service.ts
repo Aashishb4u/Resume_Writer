@@ -81,9 +81,9 @@ export class ApiService {
   }
 
   fetchAllCountries() {
-    return this.http.get('https://restcountries.com/v3.1/all');
+    return this.http.get('https://restcountries.com/v3.1/all?fields=name,currencies,idd');
   }
-
+  
   fetchAllCities(params: { search: string }) {
     return this.http.post(`${this.baseURL}/cities?search=${params.search}`, params);
   }
