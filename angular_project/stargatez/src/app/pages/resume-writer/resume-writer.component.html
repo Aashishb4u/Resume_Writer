@@ -721,17 +721,17 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-4 mt-3 md:grid-cols-3">
+                    <!-- <div class="grid grid-cols-1 gap-4 mt-3 md:grid-cols-3"> -->
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Educational
                                 Qualification <span class="text-red-500">*</span>
                             </label>
                             <input formControlName="qualification" type="text" placeholder="Highest Qualification"
                                 class="{{cvForm.get('qualification')?.invalid && cvForm.get('qualification')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
-                        <div class="relative mb-3">
+                        </div> -->
+                        <!-- <div class="relative mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Current
                                 Location <span class="text-red-500">*</span></label>
@@ -750,7 +750,7 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                                     {{city.name}}
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="relative mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Home
@@ -771,7 +771,7 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                             </div>
                         </div> -->
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Role
                                 Applying For <span class="text-red-500">*</span>
@@ -779,8 +779,8 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                             <input formControlName="designation" type="text"
                                 placeholder="Role Mentioned in the Job Description"
                                 class="{{cvForm.get('designation')?.invalid && cvForm.get('designation')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div class="mb-3">
@@ -835,15 +835,37 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                                 </div>
                             </div>
                         </div> -->
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Current
                                 / Last Company <span class="text-red-500">*</span></label>
                             <input formControlName="currentCompany" type="text"
                                 placeholder="Name of the Current / Last Company"
                                 class="{{cvForm.get('currentCompany')?.invalid && cvForm.get('currentCompany')?.touched ? 'border-red-500 border-2' : ''}} w-full p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs" />
+                        </div> -->
+                        <div class="mb-3">
+                            <label
+                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Current
+                                / Last CTC <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <select formControlName="currentSalaryLacs"
+                                        class="{{cvForm.get('currentSalaryLacs')?.invalid && cvForm.get('currentSalaryLacs')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
+                                        <option *ngFor="let lac of lacsList" [value]="lac">{{lac}}
+                                            {{apiService.getDynamicLac(lac)}}</option>
+                                    </select>
+                                    <!-- <span class="ml-2 text-xs text-gray-500">Lacs</span> -->
+                                </div>
+                                <div>
+                                    <select formControlName="currentSalaryThousands"
+                                        class="{{cvForm.get('currentSalaryThousands')?.invalid && cvForm.get('currentSalaryThousands')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
+                                        <option *ngFor="let thousand of thousandsList" [value]="thousand">{{thousand}}
+                                            {{apiService.getDynamicThousand(thousand)}}</option>
+                                    </select>
+                                    <!-- <span class="ml-2 text-xs text-gray-500">Thousands</span> -->
+                                </div>
+                            </div>
                         </div>
-
                     </div>
 
                     <!-- <div class="grid grid-cols-1 gap-6 mt-3 md:grid-cols-1">
@@ -892,47 +914,23 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                         </div>
                     </div> -->
 
-                    <div class="grid grid-cols-1 gap-6 mt-3 md:grid-cols-2">
+                    <!-- <div class="grid grid-cols-1 gap-6 mt-3 md:grid-cols-2"> -->
 
-                        <div class="mb-3">
-                            <label
-                                class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Current
-                                / Last CTC <span class="text-red-500">*</span></label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <div>
-                                    <select formControlName="currentSalaryLacs"
-                                        class="{{cvForm.get('currentSalaryLacs')?.invalid && cvForm.get('currentSalaryLacs')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
-                                        <option *ngFor="let lac of lacsList" [value]="lac">{{lac}}
-                                            {{apiService.getDynamicLac(lac)}}</option>
-                                    </select>
-                                    <!-- <span class="ml-2 text-xs text-gray-500">Lacs</span> -->
-                                </div>
-                                <div>
-                                    <select formControlName="currentSalaryThousands"
-                                        class="{{cvForm.get('currentSalaryThousands')?.invalid && cvForm.get('currentSalaryThousands')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
-                                        <option *ngFor="let thousand of thousandsList" [value]="thousand">{{thousand}}
-                                            {{apiService.getDynamicThousand(thousand)}}</option>
-                                    </select>
-                                    <!-- <span class="ml-2 text-xs text-gray-500">Thousands</span> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
+                       
+                        <!-- <div class="mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Notice
                                 Period <span class="text-red-500">*</span></label>
                             <div class="grid items-center gap-3">
                                 <div class="relative">
-                                    <!-- Select Dropdown with Dynamic Styling -->
                                     <select formControlName="noticePeriod"
                                         class="{{cvForm.get('noticePeriod')?.invalid && cvForm.get('noticePeriod')?.touched ? 'border-red-500 border-2' : ''}} border p-4 rounded-lg bg-white text-gray-800 text-sm md:text-base outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 placeholder-[#14176C] truncate placeholder:text-xs w-full">
                                         <option *ngFor="let day of noticePeriodList" [value]="day">{{day}}
                                             {{apiService.getDynamicDay(day)}}</option>
                                     </select>
                                 </div>
-                                <!-- <span class="ml-2 text-xs text-gray-500">Days</span> -->
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div class="mb-3">
                             <label
                                 class="flex items-start block mb-2 text-sm font-medium text-white justify-items-start">Expected
@@ -957,7 +955,7 @@ CHECK YOUR RESUME SCORE - FREE            </a>
                             </div>
                         </div> -->
 
-                    </div>
+                    <!-- </div> -->
                     <!-- <div class="grid grid-cols-1 gap-4 mt-3 md:grid-cols-1">
                         <div class="relative mb-3">
                             <label
